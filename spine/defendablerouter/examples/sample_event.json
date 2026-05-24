@@ -1,0 +1,13 @@
+{
+  "client_id": "mrdefendable.eth",
+  "app_id": "streetchat",
+  "agent_id": "communicator-v0",
+  "source_type": "call",
+  "route": "street_intake_to_tribunal",
+  "raw_client_language": "ring ring hello dev mr defendable here ship me the board proposal and flight sheet",
+  "assignment": {
+    "assignment_type": "board_proposal",
+    "urgency": "high",
+    "expected_outputs": ["proposal", "flight_sheet", "receipt"]
+  }
+}
