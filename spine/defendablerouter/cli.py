@@ -5,6 +5,7 @@ from typing import Optional
 
 import orjson
 import typer
+from dotenv import load_dotenv
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
@@ -167,6 +168,7 @@ def serve(
 
 
 def main() -> None:
+    load_dotenv()
     app()
 
 
