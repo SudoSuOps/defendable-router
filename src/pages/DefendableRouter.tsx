@@ -41,12 +41,14 @@ export default function DefendableRouter() {
         <Hero />
         <ProblemBand />
         <WhatItIs />
+        <LiveEngineBand />
         <Architecture />
         <DeploymentModes />
         <EnsBridge />
         <Install />
         <CodeSamples />
         <HoneyBoxPairing />
+        <FiveProofs />
         <Pricing />
         <Compare />
         <Insurance />
@@ -237,6 +239,160 @@ function ProblemTile({ title, body }: { title: string; body: string }) {
       <h3 className="text-lg font-semibold tracking-tight text-stone-50">{title}</h3>
       <p className="mt-3 text-sm text-stone-400 leading-relaxed">{body}</p>
     </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// Live Engine band · point at the actual in-house swarmrouter
+// ─────────────────────────────────────────────────────────────────────────
+function LiveEngineBand() {
+  return (
+    <section className="border-b border-amber-500/20 bg-amber-500/[0.03]">
+      <div className="max-w-6xl mx-auto px-6 py-16 lg:py-20">
+        <div className="text-[10px] uppercase tracking-[0.24em] text-amber-400/80 font-semibold font-mono">
+          BUILT ON SWARMROUTER · LIVE IN-HOUSE ENGINE · 3-4B ROUTING BRAIN
+        </div>
+        <h2 className="mt-5 text-3xl md:text-4xl font-semibold tracking-tight text-stone-50 max-w-3xl">
+          The OSS install is the wedge.{" "}
+          <span className="font-serif italic font-normal text-amber-300">The trained brain</span> is{" "}
+          already routing in production.
+        </h2>
+        <p className="mt-5 text-base text-stone-400 leading-relaxed max-w-3xl">
+          DefendableRouter (this page · the cracked-router OSS install) is the
+          public surface. The actual production routing brain is{" "}
+          <a href="https://router.swarmandbee.com" target="_blank" rel="noopener noreferrer" className="text-amber-300 hover:text-amber-200">
+            router.swarmandbee.com
+          </a>
+          {" "}— a 3-4B-parameter Qwen2.5-3B-Instruct fine-tune (QLoRA r=32)
+          trained on 60,000 routing examples, deployed inside a Cloudflare
+          Worker with 19 AI skills · 50 state experts · event machine ·
+          semantic memory. It makes routing decisions in &lt;100ms.
+        </p>
+
+        <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-stone-900 border border-stone-900 rounded-xl overflow-hidden">
+          <div className="bg-neutral-950 p-5">
+            <div className="text-2xl font-semibold tracking-tight text-amber-300 tabular-nums font-mono">3-4B</div>
+            <div className="mt-1 text-[10px] uppercase tracking-[0.22em] text-stone-300">Routing brain params</div>
+            <div className="mt-0.5 text-[10px] text-stone-500">Qwen2.5-3B-Instruct base</div>
+          </div>
+          <div className="bg-neutral-950 p-5">
+            <div className="text-2xl font-semibold tracking-tight text-amber-300 tabular-nums font-mono">60K</div>
+            <div className="mt-1 text-[10px] uppercase tracking-[0.22em] text-stone-300">Training examples</div>
+            <div className="mt-0.5 text-[10px] text-stone-500">QLoRA r=32 · cooked in-house</div>
+          </div>
+          <div className="bg-neutral-950 p-5">
+            <div className="text-2xl font-semibold tracking-tight text-amber-300 tabular-nums font-mono">&lt;100ms</div>
+            <div className="mt-1 text-[10px] uppercase tracking-[0.22em] text-stone-300">Routing decision latency</div>
+            <div className="mt-0.5 text-[10px] text-stone-500">Single forward pass</div>
+          </div>
+          <div className="bg-neutral-950 p-5">
+            <div className="text-2xl font-semibold tracking-tight text-amber-300 tabular-nums font-mono">19 + 50</div>
+            <div className="mt-1 text-[10px] uppercase tracking-[0.22em] text-stone-300">AI skills + state experts</div>
+            <div className="mt-0.5 text-[10px] text-stone-500">Cloudflare Worker · live</div>
+          </div>
+        </div>
+
+        <div className="mt-8 flex flex-wrap gap-3">
+          <a
+            href="https://router.swarmandbee.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded border border-amber-500 bg-amber-500/10 px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.18em] text-amber-300 hover:bg-amber-500/20 transition-colors font-mono"
+          >
+            $ curl router.swarmandbee.com ↗
+          </a>
+          <a
+            href="https://swarmandbee.ai/chain"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded border border-stone-700 px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.18em] text-stone-300 hover:border-amber-500/40 hover:text-amber-300 transition-colors"
+          >
+            Watch the refinery work ↗
+          </a>
+        </div>
+
+        <p className="mt-8 text-xs text-stone-500 italic font-serif leading-relaxed max-w-3xl">
+          The router you install (this page) and the routing brain we operate
+          (router.swarmandbee.com) speak the same protocol. Self-host the OSS ·
+          point at our trained brain · or wire your own routing logic against
+          the same receipt schema. "Validate the Validator. Prove the Location."
+        </p>
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// The 5 Proofs · what every receipt + deed carries
+// ─────────────────────────────────────────────────────────────────────────
+function FiveProofs() {
+  const proofs = [
+    { n: "I",   title: "Proof of Origin",     body: "Which model · which node · which hardware · which strategy. Full attribution via ENS-anchored agent identity. No mystery." },
+    { n: "II",  title: "Proof of Quality",    body: "Deterministic verification · not model opinion. JellyScore 5-component formula · 6 gates + 7th adversarial source-at-fault." },
+    { n: "III", title: "Proof of Process",    body: "Full lineage · what was tried · what failed · what survived. HoneyCard factory_path: Bee → Curator → Honey → Queen." },
+    { n: "IV",  title: "Proof of Economics",  body: "Energy cost per call · tokens · wire-time · cost-per-Honey trend. The CFO line item, on-chain, per receipt." },
+    { n: "V",   title: "Proof of Trust",      body: "Hedera HCS anchor (topic 0.0.10291838) · Merkle root · cell-level PoSg certificates. Verifiable by anyone, forever." },
+  ];
+  return (
+    <section className="border-b border-stone-900 bg-neutral-950/60">
+      <div className="max-w-6xl mx-auto px-6 py-20 lg:py-28">
+        <div className="text-[10px] uppercase tracking-[0.24em] text-amber-400/80 font-semibold font-mono">
+          THE 5 PROOFS · WHAT EVERY RECEIPT CARRIES · LIVE ON HEDERA
+        </div>
+        <h2 className="mt-5 text-3xl md:text-4xl font-semibold tracking-tight text-stone-50 max-w-3xl">
+          Five proofs.{" "}
+          <span className="font-serif italic font-normal text-amber-300">No asterisks.</span>
+        </h2>
+        <p className="mt-5 text-base text-stone-400 leading-relaxed max-w-3xl">
+          Anyone can sell rows. We sell{" "}
+          <span className="text-stone-200">defendable inventory</span>. Every
+          receipt the router fires — and every deed those receipts roll up into
+          — carries all five proofs. Anchored on the public Hedera HCS topic ·
+          verifiable by anyone with a Hedera explorer · indefinite retention.
+        </p>
+
+        <div className="mt-10 grid md:grid-cols-2 lg:grid-cols-5 gap-px bg-stone-900 border border-stone-900 rounded-xl overflow-hidden">
+          {proofs.map((p) => (
+            <div key={p.n} className="bg-neutral-950 p-5">
+              <div className="text-[10px] uppercase tracking-[0.22em] text-amber-400/70 font-semibold font-mono">
+                PROOF {p.n}
+              </div>
+              <h3 className="mt-3 text-sm font-semibold tracking-tight text-stone-100">
+                {p.title}
+              </h3>
+              <p className="mt-2 text-xs text-stone-400 leading-relaxed">{p.body}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-8 flex flex-wrap gap-3">
+          <a
+            href="https://hashscan.io/#/mainnet/topic/0.0.10291838"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded border border-amber-500/40 px-4 py-2 text-xs uppercase tracking-[0.18em] text-amber-300 hover:bg-amber-500/10 transition-colors font-mono"
+          >
+            Verify on Hedera ↗
+          </a>
+          <a
+            href="https://swarmandbee.ai/deed"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded border border-stone-700 px-4 py-2 text-xs uppercase tracking-[0.18em] text-stone-300 hover:border-amber-500/40 hover:text-amber-300 transition-colors"
+          >
+            The Deed Office ↗
+          </a>
+          <a
+            href="https://swarmandbee.ai/graph"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded border border-stone-700 px-4 py-2 text-xs uppercase tracking-[0.18em] text-stone-300 hover:border-amber-500/40 hover:text-amber-300 transition-colors"
+          >
+            Provenance graph ↗
+          </a>
+        </div>
+      </div>
+    </section>
   );
 }
 
