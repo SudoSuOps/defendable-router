@@ -5,7 +5,7 @@ PIP := $(VENV)/bin/pip
 DR := $(VENV)/bin/defendablerouter
 RUN := data/runs/router_smoke_001
 
-.PHONY: install test smoke verify clean-runs clean
+.PHONY: install test smoke verify serve api-smoke clean-runs clean
 
 $(VENV)/bin/activate:
 	python3 -m venv $(VENV)
@@ -28,6 +28,15 @@ smoke: install
 
 verify: install
 	$(DR) receipt verify --run $(RUN)
+
+serve: install
+	$(DR) serve --host 0.0.0.0 --port 8080
+
+api-smoke: install
+	@echo "=== POST /intake/streetchat ==="
+	@curl -sf -X POST http://localhost:8080/intake/streetchat \
+	  -H "Content-Type: application/json" \
+	  --data @defendablerouter/examples/sample_event.json | python3 -m json.tool
 
 clean-runs:
 	rm -rf data/runs/*

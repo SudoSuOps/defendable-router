@@ -148,6 +148,24 @@ def agent_kimi_review(
     console.print(Panel.fit(table, border_style=style))
 
 
+@app.command("serve")
+def serve(
+    host: str = typer.Option("0.0.0.0", help="Bind host."),
+    port: int = typer.Option(8080, help="Bind port."),
+    reload: bool = typer.Option(False, help="Auto-reload on code changes (dev only)."),
+) -> None:
+    """Run the StreetChat intake HTTP server."""
+    import uvicorn
+
+    uvicorn.run(
+        "defendablerouter.api.server:app",
+        host=host,
+        port=port,
+        reload=reload,
+        log_level="info",
+    )
+
+
 def main() -> None:
     app()
 
