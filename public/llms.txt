@@ -1,4 +1,6 @@
 # DefendableRouter · AI context manifest
+#
+# Last updated: 2026-05-25 (v0.1.0 brand-stack lock · Hedera anchoring doctrine cleanup · operator-entity unification)
 # Generated 2026-05-24 · https://defendablerouter.com/
 
 > DefendableRouter is the drop-in middleware that sits between your AI
@@ -73,14 +75,6 @@ vs receipts alone vs no receipts.
 - vs LangSmith        · SaaS lock-in · OpenAI-focused · no insurance angle · no deeds
 - vs LiteLLM proxy    · same shape · we add Tribunal + deeds + ENS + insurance path
 
-## Brand stack
-- defendablerouter.com   · this site
-- defendableos.com       · the mothership · third-party defense rail
-- defendablecloud.com    · sister product · operator-owned private inference
-- defendableos.com/honeybox · sister product · the edge appliance
-- docs.defendableos.com  · technical documentation
-- opendefendable.com     · OSS standards body (sister)
-
 ## Brand contract
 DefendableRouter (and all DefendableOS surfaces) NEVER ships an offense
 agent. We are always the KPMG-equivalent third party · the audit rail ·
@@ -88,6 +82,27 @@ the receipts ledger · never the agent itself.
 
 ## Repository
 https://github.com/SudoSuOps/defendable-router (open · MIT-with-receipt-clause)
+
+## Defendable brand stack · canonical v0.1.0 (2026-05-25)
+
+The DefendableOS ecosystem operates as a 10-domain coordinated brand surface.
+This canonical block supersedes all prior brand-stack definitions across the network.
+
+- **defendableos.com** — SYSTEM · the operating system / product
+- **swarmandbee.ai** — UMBRELLA · operator firm + dataset bakery
+- **opendefendable.com** — OPEN · standards body
+- **defendablerouter.com** — SPINE · drop-in AI router (write-only audit rail)
+- **defendablecloud.com** — COMPUTE · operator-owned private inference (128 RTX 6000 Blackwell)
+- **defendableledger.com** — LEDGER · sovereign in-house books and records
+- **mrdefendable.com** — FACE · principal voice / human interface
+- **offensetotheshed.com** — CULTURE · doctrine + war stories
+- **painintheshed.com** — MEDIA · cost-of-intelligence podcast
+- **defendablehack.com** — DEV · researcher / hacker tier
+
+Legacy / superseded (not part of v0.1.0):
+- ledger.mrdefendable.com → now defendableledger.com
+- chat.mrdefendable.com → deprecated
+- defendabledocs.com → consolidated into defendableos.com
 
 ## Contact
 build@defendableos.com — all three tiers, one inbox.
