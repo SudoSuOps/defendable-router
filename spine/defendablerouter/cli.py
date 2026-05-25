@@ -36,6 +36,7 @@ from defendablerouter.core.tribunal import create_tribunal_stub
 from defendablerouter.core.tribunal_grade import grade_receipt, write_verdict
 from defendablerouter.core.verify import verify_run
 from defendablerouter.publisher.publish import publish as publish_records
+from defendablerouter.util.corpus_entropy import run_entropy_report
 from defendablerouter.schemas.router_event import RouterEvent
 from defendablerouter.schemas.router_receipt import Provenance, RouterReceipt
 
@@ -281,6 +282,23 @@ def ledger_publish(
     console.print(Panel.fit(table, border_style=style))
     if not result.ok:
         raise typer.Exit(code=1)
+
+
+@jelly_app.command("entropy")
+def jelly_entropy() -> None:
+    """Run dataset-entropy report over the SwarmJelly corpus · health score + diversity."""
+    result = run_entropy_report()
+    console.print(result["report"])
+    table = Table(title="corpus entropy summary", show_header=False, box=None)
+    table.add_row("pairs analyzed", str(result["pairs"]))
+    table.add_row("corpus_jsonl", result["corpus_jsonl"])
+    if "data" in result and isinstance(result.get("data"), dict):
+        d = result["data"]
+        if "health_score" in d:
+            table.add_row("health_score", str(d.get("health_score")))
+        if "health_grade" in d:
+            table.add_row("health_grade", str(d.get("health_grade")))
+    console.print(Panel.fit(table, border_style="cyan"))
 
 
 @jelly_app.command("stats")
