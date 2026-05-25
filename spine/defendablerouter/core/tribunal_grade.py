@@ -13,9 +13,15 @@ from defendablerouter.core.ids import utc_now_iso, verdict_id as new_verdict_id
 from defendablerouter.schemas.router_event import RouterEvent
 from defendablerouter.schemas.router_receipt import RouterReceipt
 from defendablerouter.schemas.verdict import RubricScores, Severity, Tier, Verdict
+from defendablerouter.util.vocab import score_text as score_vocab
 
 VERDICT_VOLATILE = {"created_at", "verdict_sha256"}
 LOW_SCORE_THRESHOLD = 3.0
+LOW_VOCAB_DENSITY = 0.02  # < 2% canonical-term tokens · CRE intake should beat this
+CRE_ASSIGNMENT_HINTS = {
+    "underwriting", "disposition_flight_sheet", "exchange_1031", "tax_assessment",
+    "upleg_search", "ic_memo", "comp_set", "rent_roll_analysis", "lease_abstract",
+}
 _SEVERITY_RANK = {"info": 0, "warn": 1, "critical": 2}
 
 
@@ -45,6 +51,13 @@ def _compute_flags(verdict: Verdict) -> tuple[list[str], Severity]:
                 reasons.append(f"LOW_RUBRIC_{dim.upper()}:{v}")
                 bump("warn")
 
+    if (
+        verdict.vocab_density is not None
+        and verdict.vocab_density < LOW_VOCAB_DENSITY
+    ):
+        reasons.append(f"LOW_VOCAB_DENSITY:{verdict.vocab_density:.3f}")
+        bump("warn")
+
     return reasons, severity
 
 SYSTEM_PROMPT = (
@@ -67,7 +80,11 @@ SYSTEM_PROMPT = (
     "2. assignment_type is 'unknown', 'empty_intake', or missing → tier = propolis\n"
     "3. expected_outputs is an empty array → cap accuracy ≤ 1.5\n"
     "4. raw_client_language is incoherent ('uh yeah do the thing', filler words, no specifics) → cap all scores ≤ 1.5\n"
-    "5. If the intake would NOT pencil with a CRE broker → tier is propolis or pollen\n\n"
+    "5. If the intake would NOT pencil with a CRE broker → tier is propolis or pollen\n"
+    "6. vocab_signal.density is the share of canonical DefendableOS/CRE terms (1031 · cap rate · NOI · DSCR · STNL · WALT · etc.) per total tokens.\n"
+    "   - density < 0.02 AND assignment_type claims CRE work → cap cre_judgment ≤ 2.0 · tier propolis or pollen\n"
+    "   - density >= 0.05 with substantive content → eligible for honey/apex\n"
+    "   - Use vocab_signal.terms_seen as ground truth · do not invent vocab the intake does not actually use\n\n"
     "ROYAL JELLY TIERS (route the training pair here):\n"
     "- apex     mean >= 4.5  · operator-grade ground truth · principal language · primary fine-tune fuel\n"
     "- honey    3.5–4.5      · production-ready · validator chain training\n"
@@ -112,15 +129,20 @@ def _hash_verdict(v: Verdict) -> str:
     return sha256_bytes(canonicalize_for_hash(body, VERDICT_VOLATILE))
 
 
-def _build_grading_payload(receipt: RouterReceipt, event: Optional[RouterEvent]) -> Dict[str, Any]:
+def _build_grading_payload(
+    receipt: RouterReceipt,
+    event: Optional[RouterEvent],
+    vocab_signal: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
     """Compose the focused JSON payload the curator grades.
 
     Receipt envelope alone is misleading (tribunal/ddeed stubs are null by design ·
     raw_client_language lives in the event, not the receipt). Send the event content
-    front-and-center · receipt provenance as supporting metadata.
+    front-and-center · receipt provenance as supporting metadata · vocab signal
+    so the curator can ground its CRE judgment in canonical terms actually present.
     """
     if event is not None:
-        return {
+        payload: Dict[str, Any] = {
             "raw_client_language": event.raw_client_language,
             "parsed_assignment": event.assignment.model_dump(mode="json"),
             "source_type": event.source_type,
@@ -136,7 +158,9 @@ def _build_grading_payload(receipt: RouterReceipt, event: Optional[RouterEvent])
                 "object_storage_uri": receipt.object_storage.uri,
             },
         }
-    # Fallback: receipt-only (back-compat for callers without the event)
+        if vocab_signal is not None:
+            payload["vocab_signal"] = vocab_signal
+        return payload
     return receipt.model_dump(mode="json")
 
 
@@ -159,6 +183,19 @@ def grade_receipt(
         graded_by="swarmcurator-9b",
     )
 
+    # Vocab signal · computed deterministically from event text, independent of curator
+    vocab_signal: Optional[Dict[str, Any]] = None
+    if event is not None:
+        vs = score_vocab(event.raw_client_language)
+        base.vocab_density = round(vs.density, 4)
+        base.vocab_terms_seen = vs.terms_seen
+        vocab_signal = {
+            "density": base.vocab_density,
+            "terms_seen": vs.terms_seen[:20],
+            "matched_tokens": vs.matched_tokens,
+            "total_tokens": vs.total_tokens,
+        }
+
     client = client or SwarmCuratorClient()
     if not client.is_reachable():
         base.status = "SKIPPED"
@@ -167,7 +204,7 @@ def grade_receipt(
         base.verdict_sha256 = _hash_verdict(base)
         return base
 
-    payload = _build_grading_payload(receipt, event)
+    payload = _build_grading_payload(receipt, event, vocab_signal)
     payload_blob = orjson.dumps(payload, option=orjson.OPT_SORT_KEYS).decode("utf-8")
     try:
         content = client.chat(

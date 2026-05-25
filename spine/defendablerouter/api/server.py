@@ -65,6 +65,9 @@ class IntakeResponse(BaseModel):
     jelly_rj_tier: Optional[str] = None
     audit_id: Optional[str] = None
 
+    vocab_density: Optional[float] = None
+    vocab_terms_seen: Optional[list] = None
+
 
 def _runs_dir() -> Path:
     return Path(os.environ.get(RUNS_ENV, DEFAULT_RUNS))
@@ -115,6 +118,8 @@ def _run_full_pipeline(event: RouterEvent, receipt: RouterReceipt, run_dir: Path
     summary["tier"] = verdict.tier
     summary["flag_reasons"] = list(verdict.flag_reasons)
     summary["flag_severity"] = verdict.flag_severity
+    summary["vocab_density"] = verdict.vocab_density
+    summary["vocab_terms_seen"] = list(verdict.vocab_terms_seen)
 
     verdict_ledger = append_payload_file(
         record_type="VERDICT",
@@ -226,6 +231,8 @@ def create_app() -> FastAPI:
             "jelly_audit_verdict": None,
             "jelly_rj_tier": None,
             "audit_id": None,
+            "vocab_density": None,
+            "vocab_terms_seen": None,
         }
         if grade and _autograde_enabled():
             try:
@@ -260,6 +267,8 @@ def create_app() -> FastAPI:
             jelly_audit_verdict=pipeline_summary.get("jelly_audit_verdict"),
             jelly_rj_tier=pipeline_summary.get("jelly_rj_tier"),
             audit_id=pipeline_summary.get("audit_id"),
+            vocab_density=pipeline_summary.get("vocab_density"),
+            vocab_terms_seen=pipeline_summary.get("vocab_terms_seen"),
         )
 
     @app.get("/receipt/{receipt_id}", dependencies=[Depends(_require_token)])

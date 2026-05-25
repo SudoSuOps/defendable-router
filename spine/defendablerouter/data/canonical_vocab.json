@@ -1,0 +1,776 @@
+{
+  "generated_at": "2026-05-25",
+  "source": "github.com/SudoSuOps/defend-A-pedia--vocabulary",
+  "term_count": 89,
+  "terms": [
+    {
+      "slug": "1031-exchange",
+      "display": "1031 Exchange",
+      "category": "cre_terms",
+      "aliases": [
+        "1031",
+        "1031 exchange",
+        "1031-exchange",
+        "1031s",
+        "exchange",
+        "section 1031"
+      ]
+    },
+    {
+      "slug": "adjusted-basis",
+      "display": "Adjusted Basis",
+      "category": "cre_terms",
+      "aliases": [
+        "adjusted basis",
+        "adjusted-basis"
+      ]
+    },
+    {
+      "slug": "agentbench",
+      "display": "AgentBench",
+      "category": "defendableos_terms",
+      "aliases": [
+        "agentbench"
+      ]
+    },
+    {
+      "slug": "assignment",
+      "display": "Assignment",
+      "category": "client_terms",
+      "aliases": [
+        "assignment"
+      ]
+    },
+    {
+      "slug": "assignment-failure",
+      "display": "Assignment Failure",
+      "category": "tribunal_terms",
+      "aliases": [
+        "assignment failure"
+      ]
+    },
+    {
+      "slug": "assignment-success",
+      "display": "Assignment Success",
+      "category": "tribunal_terms",
+      "aliases": [
+        "assignment success"
+      ]
+    },
+    {
+      "slug": "bee",
+      "display": "Bee",
+      "category": "hive_terms",
+      "aliases": [
+        "bee"
+      ]
+    },
+    {
+      "slug": "books-and-records",
+      "display": "Books and Records",
+      "category": "cre_terms",
+      "aliases": [
+        "books and records"
+      ]
+    },
+    {
+      "slug": "boot",
+      "display": "Boot",
+      "category": "cre_terms",
+      "aliases": [
+        "boot",
+        "boot received",
+        "cash boot"
+      ]
+    },
+    {
+      "slug": "cap-rate",
+      "display": "Cap Rate",
+      "category": "cre_terms",
+      "aliases": [
+        "cap",
+        "cap rate",
+        "cap-rate",
+        "caprate"
+      ]
+    },
+    {
+      "slug": "clawcheck",
+      "display": "ClawCheck",
+      "category": "defendableos_terms",
+      "aliases": [
+        "clawcheck"
+      ]
+    },
+    {
+      "slug": "client-confidence",
+      "display": "Client Confidence",
+      "category": "scoring_terms",
+      "aliases": [
+        "client confidence"
+      ]
+    },
+    {
+      "slug": "closing-statement-defendable-closing-statement",
+      "display": "Closing Statement (Defendable Closing Statement)",
+      "category": "client_terms",
+      "aliases": [
+        "closing statement (defendable closing statement)"
+      ]
+    },
+    {
+      "slug": "color",
+      "display": "Color",
+      "category": "cre_terms",
+      "aliases": [
+        "color",
+        "color on the asset",
+        "intel",
+        "verified intel"
+      ]
+    },
+    {
+      "slug": "communicator",
+      "display": "Communicator",
+      "category": "defendableos_terms",
+      "aliases": [
+        "communicator"
+      ]
+    },
+    {
+      "slug": "comp-set",
+      "display": "Comp Set",
+      "category": "cre_terms",
+      "aliases": [
+        "comp",
+        "comp set",
+        "comp-set",
+        "comps"
+      ]
+    },
+    {
+      "slug": "compare-task",
+      "display": "Compare Task",
+      "category": "repair_terms",
+      "aliases": [
+        "compare task"
+      ]
+    },
+    {
+      "slug": "confidence-weight",
+      "display": "Confidence Weight",
+      "category": "tribunal_terms",
+      "aliases": [
+        "confidence weight"
+      ]
+    },
+    {
+      "slug": "cost-to-mint",
+      "display": "Cost to Mint",
+      "category": "hive_terms",
+      "aliases": [
+        "cost to mint"
+      ]
+    },
+    {
+      "slug": "cre",
+      "display": "Cre",
+      "category": "cre_terms",
+      "aliases": [
+        "commercial real estate",
+        "cre"
+      ]
+    },
+    {
+      "slug": "deal-flow",
+      "display": "Deal Flow",
+      "category": "cre_terms",
+      "aliases": [
+        "deal flow"
+      ]
+    },
+    {
+      "slug": "defendablecloud-com",
+      "display": "DefendableCloud.com",
+      "category": "defendableos_terms",
+      "aliases": [
+        "defendablecloud.com"
+      ]
+    },
+    {
+      "slug": "defendablehack",
+      "display": "DefendableHack",
+      "category": "defendableos_terms",
+      "aliases": [
+        "defendablehack"
+      ]
+    },
+    {
+      "slug": "defendablejelly",
+      "display": "DefendableJelly",
+      "category": "repair_terms",
+      "aliases": [
+        "defendablejelly"
+      ]
+    },
+    {
+      "slug": "defendableos",
+      "display": "DefendableOS",
+      "category": "defendableos_terms",
+      "aliases": [
+        "defendableos"
+      ]
+    },
+    {
+      "slug": "defendablerouter",
+      "display": "DefendableRouter",
+      "category": "defendableos_terms",
+      "aliases": [
+        "defendablerouter"
+      ]
+    },
+    {
+      "slug": "deferred-gain",
+      "display": "Deferred Gain",
+      "category": "cre_terms",
+      "aliases": [
+        "deferred gain",
+        "deferred-gain"
+      ]
+    },
+    {
+      "slug": "detect-task",
+      "display": "Detect Task",
+      "category": "repair_terms",
+      "aliases": [
+        "detect task"
+      ]
+    },
+    {
+      "slug": "diagnose-task",
+      "display": "Diagnose Task",
+      "category": "repair_terms",
+      "aliases": [
+        "diagnose task"
+      ]
+    },
+    {
+      "slug": "digest",
+      "display": "Digest",
+      "category": "cre_terms",
+      "aliases": [
+        "digest"
+      ]
+    },
+    {
+      "slug": "dscr",
+      "display": "Dscr",
+      "category": "cre_terms",
+      "aliases": [
+        "debt service coverage ratio",
+        "debt-service coverage",
+        "dscr"
+      ]
+    },
+    {
+      "slug": "due-diligence",
+      "display": "Due Diligence",
+      "category": "cre_terms",
+      "aliases": [
+        "dd",
+        "due diligence",
+        "due-diligence"
+      ]
+    },
+    {
+      "slug": "due-diligence-dd",
+      "display": "Due Diligence (DD)",
+      "category": "cre_terms",
+      "aliases": [
+        "due diligence (dd)"
+      ]
+    },
+    {
+      "slug": "energy",
+      "display": "Energy",
+      "category": "hive_terms",
+      "aliases": [
+        "energy"
+      ]
+    },
+    {
+      "slug": "engagement",
+      "display": "Engagement",
+      "category": "client_terms",
+      "aliases": [
+        "engagement"
+      ]
+    },
+    {
+      "slug": "evidence-strength",
+      "display": "Evidence Strength",
+      "category": "scoring_terms",
+      "aliases": [
+        "evidence strength"
+      ]
+    },
+    {
+      "slug": "genesis",
+      "display": "Genesis",
+      "category": "hive_terms",
+      "aliases": [
+        "genesis"
+      ]
+    },
+    {
+      "slug": "ground-lease",
+      "display": "Ground Lease",
+      "category": "cre_terms",
+      "aliases": [
+        "ground lease",
+        "ground-lease"
+      ]
+    },
+    {
+      "slug": "hallucination-event",
+      "display": "Hallucination Event",
+      "category": "tribunal_terms",
+      "aliases": [
+        "hallucination event"
+      ]
+    },
+    {
+      "slug": "hive",
+      "display": "Hive",
+      "category": "hive_terms",
+      "aliases": [
+        "hive"
+      ]
+    },
+    {
+      "slug": "honey",
+      "display": "Honey",
+      "category": "hive_terms",
+      "aliases": [
+        "honey"
+      ]
+    },
+    {
+      "slug": "honeybox",
+      "display": "HoneyBox",
+      "category": "defendableos_terms",
+      "aliases": [
+        "honeybox"
+      ]
+    },
+    {
+      "slug": "ic-memo",
+      "display": "Ic Memo",
+      "category": "cre_terms",
+      "aliases": [
+        "ic memo",
+        "ic-memo",
+        "investment committee memo"
+      ]
+    },
+    {
+      "slug": "jelly",
+      "display": "Jelly",
+      "category": "hive_terms",
+      "aliases": [
+        "jelly"
+      ]
+    },
+    {
+      "slug": "judge",
+      "display": "Judge",
+      "category": "tribunal_terms",
+      "aliases": [
+        "judge"
+      ]
+    },
+    {
+      "slug": "lease-term",
+      "display": "Lease Term",
+      "category": "cre_terms",
+      "aliases": [
+        "lease term",
+        "lease-term",
+        "wale"
+      ]
+    },
+    {
+      "slug": "letter-of-understanding-lou",
+      "display": "Letter of Understanding (LOU)",
+      "category": "client_terms",
+      "aliases": [
+        "letter of understanding (lou)"
+      ]
+    },
+    {
+      "slug": "loi",
+      "display": "Loi",
+      "category": "cre_terms",
+      "aliases": [
+        "letter of intent",
+        "loi"
+      ]
+    },
+    {
+      "slug": "loi-letter-of-intent-a-k-a-lou-letter-of-understanding",
+      "display": "LOI \u00b7 Letter of Intent (a.k.a. LOU \u00b7 Letter of Understanding)",
+      "category": "cre_terms",
+      "aliases": [
+        "loi \u00b7 letter of intent (a.k.a. lou \u00b7 letter of understanding)"
+      ]
+    },
+    {
+      "slug": "lou",
+      "display": "Lou",
+      "category": "cre_terms",
+      "aliases": [
+        "letter of understanding",
+        "letter-of-understanding",
+        "lou"
+      ]
+    },
+    {
+      "slug": "ltv",
+      "display": "Ltv",
+      "category": "cre_terms",
+      "aliases": [
+        "loan to value",
+        "loan-to-value",
+        "ltv"
+      ]
+    },
+    {
+      "slug": "morning-brief",
+      "display": "Morning Brief",
+      "category": "client_terms",
+      "aliases": [
+        "morning brief"
+      ]
+    },
+    {
+      "slug": "nnn",
+      "display": "Nnn",
+      "category": "cre_terms",
+      "aliases": [
+        "nnn",
+        "triple net",
+        "triple-net"
+      ]
+    },
+    {
+      "slug": "noi",
+      "display": "Noi",
+      "category": "cre_terms",
+      "aliases": [
+        "net operating income",
+        "noi"
+      ]
+    },
+    {
+      "slug": "occupancy",
+      "display": "Occupancy",
+      "category": "cre_terms",
+      "aliases": [
+        "occupancy",
+        "occupancy rate"
+      ]
+    },
+    {
+      "slug": "om",
+      "display": "Om",
+      "category": "cre_terms",
+      "aliases": [
+        "offering memorandum",
+        "om"
+      ]
+    },
+    {
+      "slug": "om-offering-memorandum",
+      "display": "OM \u00b7 Offering Memorandum",
+      "category": "cre_terms",
+      "aliases": [
+        "om \u00b7 offering memorandum"
+      ]
+    },
+    {
+      "slug": "pair-candidate",
+      "display": "Pair Candidate",
+      "category": "repair_terms",
+      "aliases": [
+        "pair candidate"
+      ]
+    },
+    {
+      "slug": "pass-doctrine",
+      "display": "PASS Doctrine",
+      "category": "client_terms",
+      "aliases": [
+        "pass doctrine"
+      ]
+    },
+    {
+      "slug": "pre-market-flight-sheet",
+      "display": "Pre-Market Flight Sheet",
+      "category": "client_terms",
+      "aliases": [
+        "pre-market flight sheet"
+      ]
+    },
+    {
+      "slug": "prevent-task",
+      "display": "Prevent Task",
+      "category": "repair_terms",
+      "aliases": [
+        "prevent task"
+      ]
+    },
+    {
+      "slug": "principal",
+      "display": "Principal",
+      "category": "client_terms",
+      "aliases": [
+        "principal"
+      ]
+    },
+    {
+      "slug": "probability-of-close",
+      "display": "Probability of Close",
+      "category": "scoring_terms",
+      "aliases": [
+        "probability of close"
+      ]
+    },
+    {
+      "slug": "propolis",
+      "display": "Propolis",
+      "category": "hive_terms",
+      "aliases": [
+        "propolis"
+      ]
+    },
+    {
+      "slug": "psa-purchase-and-sale-agreement",
+      "display": "PSA \u00b7 Purchase and Sale Agreement",
+      "category": "cre_terms",
+      "aliases": [
+        "psa \u00b7 purchase and sale agreement"
+      ]
+    },
+    {
+      "slug": "psf",
+      "display": "Psf",
+      "category": "cre_terms",
+      "aliases": [
+        "$/sf",
+        "per sf",
+        "per square foot",
+        "psf"
+      ]
+    },
+    {
+      "slug": "qi",
+      "display": "Qi",
+      "category": "cre_terms",
+      "aliases": [
+        "qi",
+        "qualified intermediary"
+      ]
+    },
+    {
+      "slug": "recognized-gain",
+      "display": "Recognized Gain",
+      "category": "cre_terms",
+      "aliases": [
+        "recognized gain",
+        "recognized-gain"
+      ]
+    },
+    {
+      "slug": "rent-roll",
+      "display": "Rent Roll",
+      "category": "cre_terms",
+      "aliases": [
+        "rent roll",
+        "rent-roll"
+      ]
+    },
+    {
+      "slug": "repair-lift",
+      "display": "Repair Lift",
+      "category": "repair_terms",
+      "aliases": [
+        "repair lift"
+      ]
+    },
+    {
+      "slug": "repair-lift-ui-dial",
+      "display": "Repair Lift (UI Dial)",
+      "category": "scoring_terms",
+      "aliases": [
+        "repair lift (ui dial)"
+      ]
+    },
+    {
+      "slug": "repair-task",
+      "display": "Repair Task",
+      "category": "repair_terms",
+      "aliases": [
+        "repair task"
+      ]
+    },
+    {
+      "slug": "replacement-property",
+      "display": "Replacement Property",
+      "category": "cre_terms",
+      "aliases": [
+        "replacement property",
+        "replacement-property"
+      ]
+    },
+    {
+      "slug": "risk-temperature",
+      "display": "Risk Temperature",
+      "category": "scoring_terms",
+      "aliases": [
+        "risk temperature"
+      ]
+    },
+    {
+      "slug": "royal-jelly",
+      "display": "Royal Jelly",
+      "category": "hive_terms",
+      "aliases": [
+        "royal jelly"
+      ]
+    },
+    {
+      "slug": "stnl",
+      "display": "Stnl",
+      "category": "cre_terms",
+      "aliases": [
+        "single tenant net lease",
+        "single-tenant net lease",
+        "stnl"
+      ]
+    },
+    {
+      "slug": "swarm",
+      "display": "Swarm",
+      "category": "hive_terms",
+      "aliases": [
+        "swarm"
+      ]
+    },
+    {
+      "slug": "swarmfixer",
+      "display": "SwarmFixer",
+      "category": "repair_terms",
+      "aliases": [
+        "swarmfixer"
+      ]
+    },
+    {
+      "slug": "swarmjelly",
+      "display": "SwarmJelly",
+      "category": "repair_terms",
+      "aliases": [
+        "swarmjelly"
+      ]
+    },
+    {
+      "slug": "t-12",
+      "display": "T 12",
+      "category": "cre_terms",
+      "aliases": [
+        "t 12",
+        "t-12",
+        "t12",
+        "trailing 12",
+        "trailing-12"
+      ]
+    },
+    {
+      "slug": "temp-0-05-rule-the-temp-five-cent-rule",
+      "display": "TEMP 0.05 Rule (the Temp Five-Cent Rule)",
+      "category": "defendableos_terms",
+      "aliases": [
+        "temp 0.05 rule (the temp five-cent rule)"
+      ]
+    },
+    {
+      "slug": "tenant-credit",
+      "display": "Tenant Credit",
+      "category": "cre_terms",
+      "aliases": [
+        "credit tenant",
+        "tenant credit",
+        "tenant-credit"
+      ]
+    },
+    {
+      "slug": "tribunal",
+      "display": "Tribunal",
+      "category": "tribunal_terms",
+      "aliases": [
+        "tribunal"
+      ]
+    },
+    {
+      "slug": "underwriting",
+      "display": "Underwriting",
+      "category": "cre_terms",
+      "aliases": [
+        "underwrite",
+        "underwriter",
+        "underwriting"
+      ]
+    },
+    {
+      "slug": "vacancy",
+      "display": "Vacancy",
+      "category": "cre_terms",
+      "aliases": [
+        "vacancy",
+        "vacancy rate"
+      ]
+    },
+    {
+      "slug": "validator",
+      "display": "Validator",
+      "category": "tribunal_terms",
+      "aliases": [
+        "validator"
+      ]
+    },
+    {
+      "slug": "validator-chain",
+      "display": "Validator Chain",
+      "category": "tribunal_terms",
+      "aliases": [
+        "validator chain"
+      ]
+    },
+    {
+      "slug": "validator-confidence",
+      "display": "Validator Confidence",
+      "category": "scoring_terms",
+      "aliases": [
+        "validator confidence"
+      ]
+    },
+    {
+      "slug": "walt",
+      "display": "Walt",
+      "category": "cre_terms",
+      "aliases": [
+        "walt",
+        "weighted average lease term"
+      ]
+    }
+  ]
+}

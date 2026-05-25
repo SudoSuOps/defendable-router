@@ -42,5 +42,8 @@ class Verdict(BaseModel):
     flag_reasons: List[str] = Field(default_factory=list)
     flag_severity: Severity = "info"
 
+    vocab_density: Optional[float] = None
+    vocab_terms_seen: List[str] = Field(default_factory=list)
+
     skip_reason: Optional[str] = None
     verdict_sha256: Optional[str] = None

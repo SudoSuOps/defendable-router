@@ -34,6 +34,9 @@ defendablerouter = "defendablerouter.cli:main"
 include = ["defendablerouter*"]
 exclude = ["tests*", "data*"]
 
+[tool.setuptools.package-data]
+defendablerouter = ["data/*.json"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-ra"
