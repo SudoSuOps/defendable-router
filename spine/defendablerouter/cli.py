@@ -35,6 +35,7 @@ from defendablerouter.core.swarmjelly import build_pair, corpus_stats, write_pai
 from defendablerouter.core.tribunal import create_tribunal_stub
 from defendablerouter.core.tribunal_grade import grade_receipt, write_verdict
 from defendablerouter.core.verify import verify_run
+from defendablerouter.publisher.publish import publish as publish_records
 from defendablerouter.schemas.router_event import RouterEvent
 from defendablerouter.schemas.router_receipt import Provenance, RouterReceipt
 
@@ -249,6 +250,37 @@ def ledger_show(
     for r in tail:
         table.add_row(str(r.ledger_seq), r.record_type, r.record_id, r.payload_ref[:50], r.issued_by)
     console.print(table)
+
+
+@ledger_app.command("publish")
+def ledger_publish(
+    repo: Path = typer.Option(..., exists=True, file_okay=False, dir_okay=True,
+                              help="Path to the defendable-ledger clone."),
+    since: Optional[int] = typer.Option(None, help="Override cursor · republish records with ledger_seq > since."),
+    commit: bool = typer.Option(False, "--commit", help="git commit new files."),
+    push: bool = typer.Option(False, "--push", help="git push origin main (implies --commit)."),
+) -> None:
+    """Publish DefendableLedger records into the defendable-ledger repo · /public/records/*."""
+    if push and not commit:
+        commit = True
+    result = publish_records(repo=repo, since=since, commit=commit, push=push)
+    style = "green" if result.ok else "red"
+    table = Table(title="DefendableLedger · publish", show_header=False, box=None)
+    table.add_row("status", f"[{style}]{'OK' if result.ok else 'ERROR'}[/{style}]")
+    table.add_row("repo", str(result.repo))
+    table.add_row("cursor", f"{result.cursor_before} → {result.cursor_after}")
+    table.add_row("new_records", str(result.new_records))
+    if result.commit_sha:
+        table.add_row("commit", result.commit_sha[:12])
+    if result.pushed:
+        table.add_row("pushed", "yes")
+    if result.skipped:
+        table.add_row("skipped", "\n".join(result.skipped[:5]))
+    if result.errors:
+        table.add_row("errors", "\n".join(result.errors[:5]))
+    console.print(Panel.fit(table, border_style=style))
+    if not result.ok:
+        raise typer.Exit(code=1)
 
 
 @jelly_app.command("stats")
