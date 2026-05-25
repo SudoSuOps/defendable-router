@@ -95,8 +95,8 @@ def _run_full_pipeline(event: RouterEvent, receipt: RouterReceipt, run_dir: Path
     )
     summary["ledger_seqs"]["receipt"] = receipt_ledger.ledger_seq
 
-    # Rail 2: SwarmCurator grade
-    verdict = grade_receipt(receipt, SwarmCuratorClient())
+    # Rail 2: SwarmCurator grade (event passed so curator sees raw_client_language + assignment)
+    verdict = grade_receipt(receipt, SwarmCuratorClient(), event=event)
     write_verdict(verdict, run_dir)
     summary["grading_status"] = verdict.status
     summary["tier"] = verdict.tier

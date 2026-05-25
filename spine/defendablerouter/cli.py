@@ -177,7 +177,7 @@ def tribunal_grade(
     receipt = RouterReceipt.model_validate(orjson.loads(receipt_path.read_bytes()))
     event = RouterEvent.model_validate(orjson.loads(event_path.read_bytes()))
 
-    verdict = grade_receipt(receipt)
+    verdict = grade_receipt(receipt, event=event)
     write_verdict(verdict, run)
     append_payload_file(
         record_type="VERDICT",

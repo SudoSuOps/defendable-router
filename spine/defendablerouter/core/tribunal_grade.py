@@ -10,11 +10,12 @@ from defendablerouter.agents.swarmcurator_client import SwarmCuratorClient, Swar
 from defendablerouter.core.canonicalize import canonicalize_for_hash
 from defendablerouter.core.hash import sha256_bytes
 from defendablerouter.core.ids import utc_now_iso, verdict_id as new_verdict_id
+from defendablerouter.schemas.router_event import RouterEvent
 from defendablerouter.schemas.router_receipt import RouterReceipt
 from defendablerouter.schemas.verdict import RubricScores, Severity, Tier, Verdict
 
 VERDICT_VOLATILE = {"created_at", "verdict_sha256"}
-LOW_SCORE_THRESHOLD = 2.0
+LOW_SCORE_THRESHOLD = 3.0
 _SEVERITY_RANK = {"info": 0, "warn": 1, "critical": 2}
 
 
@@ -47,27 +48,42 @@ def _compute_flags(verdict: Verdict) -> tuple[list[str], Severity]:
     return reasons, severity
 
 SYSTEM_PROMPT = (
-    "You are SwarmCurator, the in-house grading model for the DefendableOS ecosystem. "
-    "Grade the DefendableRouter receipt presented in the user message against the "
-    "4-dimension rubric (0.0-5.0 each):\n"
-    "- accuracy: how factually grounded and verifiable the assignment is\n"
-    "- cre_judgment: how operator-grade and CRE-broker-like the assignment is\n"
-    "- format: how cleanly structured the parsed assignment is\n"
-    "- score: overall holistic score\n\n"
-    "Then assign a Royal Jelly tier:\n"
-    "- apex: mean >= 4.5 (operator-grade ground truth)\n"
-    "- honey: 3.5 <= mean < 4.5 (production-ready)\n"
-    "- jelly: 2.5 <= mean < 3.5 (solid corpus material)\n"
-    "- pollen: 1.5 <= mean < 2.5 (breadth coverage)\n"
-    "- propolis: mean < 1.5 (edge cases / repair lift)\n\n"
-    "Return JSON only, exact shape:\n"
+    "You are SwarmCurator, the in-house grading model for the DefendableOS ecosystem.\n\n"
+    "Your job is to grade DefendableRouter receipts on a 4-dimension rubric and route\n"
+    "training pairs into the correct Royal Jelly tier so SwarmFixer learns from real\n"
+    "failure modes, not aspirational scores.\n\n"
+    "RUBRIC (0.0-5.0, be honest, no inflation):\n"
+    "- accuracy     · how factually grounded and verifiable the parsed assignment is\n"
+    "                 5 = specific verifiable claims · 3 = plausible but generic · 1 = vague · 0 = empty\n"
+    "- cre_judgment · how operator-grade / CRE-broker-like the intake is\n"
+    "                 5 = principal voice · specific deal language · real urgency · 3 = competent\n"
+    "                 1 = generic startup-speak · 0 = no operator signal\n"
+    "- format       · how cleanly structured the parsed assignment block is\n"
+    "                 5 = assignment_type clear · urgency real · expected_outputs concrete\n"
+    "                 3 = partial · 1 = mostly empty · 0 = malformed or empty\n"
+    "- score        · overall holistic operator-grade gut check\n\n"
+    "HARD RULES (apply BEFORE the rubric · these force propolis):\n"
+    "1. raw_client_language is empty or <10 chars → tier = propolis · cap all scores ≤ 1.0\n"
+    "2. assignment_type is 'unknown', 'empty_intake', or missing → tier = propolis\n"
+    "3. expected_outputs is an empty array → cap accuracy ≤ 1.5\n"
+    "4. raw_client_language is incoherent ('uh yeah do the thing', filler words, no specifics) → cap all scores ≤ 1.5\n"
+    "5. If the intake would NOT pencil with a CRE broker → tier is propolis or pollen\n\n"
+    "ROYAL JELLY TIERS (route the training pair here):\n"
+    "- apex     mean >= 4.5  · operator-grade ground truth · principal language · primary fine-tune fuel\n"
+    "- honey    3.5–4.5      · production-ready · validator chain training\n"
+    "- jelly    2.5–3.5      · solid corpus material · DPO candidates\n"
+    "- pollen   1.5–2.5      · breadth · low-weight inclusion\n"
+    "- propolis < 1.5        · edge cases · failure modes · repair lift · SwarmFixer fuel\n\n"
+    "DO NOT be charitable. If the intake would fail a CRE-broker sniff test, grade it that way.\n"
+    "The propolis corpus is the most valuable training data the fleet mints because it teaches\n"
+    "the system to recognize and repair failure. Inflated scores hurt the fleet.\n\n"
+    "Return JSON only · NO prose · NO markdown · exact shape:\n"
     "{\n"
     '  "rubric_scores": {"accuracy": float, "cre_judgment": float, "format": float, "score": float},\n'
     '  "tier": "apex|honey|jelly|pollen|propolis",\n'
     '  "assignment_success": true|false,\n'
-    '  "notes": "1-2 sentence operator note"\n'
-    "}\n"
-    "No prose. No markdown. JSON only."
+    '  "notes": "1 sentence · dominant failure mode if propolis/pollen · what makes it strong if apex/honey"\n'
+    "}"
 )
 
 
@@ -96,11 +112,44 @@ def _hash_verdict(v: Verdict) -> str:
     return sha256_bytes(canonicalize_for_hash(body, VERDICT_VOLATILE))
 
 
+def _build_grading_payload(receipt: RouterReceipt, event: Optional[RouterEvent]) -> Dict[str, Any]:
+    """Compose the focused JSON payload the curator grades.
+
+    Receipt envelope alone is misleading (tribunal/ddeed stubs are null by design ·
+    raw_client_language lives in the event, not the receipt). Send the event content
+    front-and-center · receipt provenance as supporting metadata.
+    """
+    if event is not None:
+        return {
+            "raw_client_language": event.raw_client_language,
+            "parsed_assignment": event.assignment.model_dump(mode="json"),
+            "source_type": event.source_type,
+            "route": event.route,
+            "client_id": event.client_id,
+            "app_id": event.app_id,
+            "agent_id": event.agent_id,
+            "edge_device_id": event.edge_device_id,
+            "receipt_meta": {
+                "receipt_id": receipt.receipt_id,
+                "assignment_id": receipt.assignment_id,
+                "issued_by_host": receipt.provenance.host,
+                "object_storage_uri": receipt.object_storage.uri,
+            },
+        }
+    # Fallback: receipt-only (back-compat for callers without the event)
+    return receipt.model_dump(mode="json")
+
+
 def grade_receipt(
     receipt: RouterReceipt,
     client: Optional[SwarmCuratorClient] = None,
+    event: Optional[RouterEvent] = None,
 ) -> Verdict:
-    """Grade a receipt via SwarmCurator-9B. Graceful skip if curator is unreachable."""
+    """Grade a receipt via SwarmCurator-9B. Graceful skip if curator is unreachable.
+
+    Pass `event` to give the curator the actual intake content. Without it, the
+    curator sees only the receipt envelope (no raw_client_language) and will under-grade.
+    """
     vid = new_verdict_id()
     base = Verdict(
         verdict_id=vid,
@@ -114,15 +163,17 @@ def grade_receipt(
     if not client.is_reachable():
         base.status = "SKIPPED"
         base.skip_reason = "SwarmCurator endpoint unreachable"
+        base.flag_reasons, base.flag_severity = _compute_flags(base)
         base.verdict_sha256 = _hash_verdict(base)
         return base
 
-    receipt_blob = orjson.dumps(receipt.model_dump(mode="json"), option=orjson.OPT_SORT_KEYS).decode("utf-8")
+    payload = _build_grading_payload(receipt, event)
+    payload_blob = orjson.dumps(payload, option=orjson.OPT_SORT_KEYS).decode("utf-8")
     try:
         content = client.chat(
             messages=[
                 {"role": "system", "content": SYSTEM_PROMPT},
-                {"role": "user", "content": receipt_blob},
+                {"role": "user", "content": payload_blob},
             ],
             response_format={"type": "json_object"},
             temperature=0.0,
