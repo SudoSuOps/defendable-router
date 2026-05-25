@@ -1,11 +1,12 @@
 from __future__ import annotations
 
-from typing import Literal, Optional
+from typing import List, Literal, Optional
 
 from pydantic import BaseModel, ConfigDict, Field
 
 Tier = Literal["apex", "honey", "jelly", "pollen", "propolis"]
 VerdictStatus = Literal["GRADED", "FAILED", "SKIPPED"]
+Severity = Literal["info", "warn", "critical"]
 
 
 class RubricScores(BaseModel):
@@ -37,6 +38,9 @@ class Verdict(BaseModel):
     graded_by: str = "swarmcurator-9b"
     notes: str = ""
     created_at: str
+
+    flag_reasons: List[str] = Field(default_factory=list)
+    flag_severity: Severity = "info"
 
     skip_reason: Optional[str] = None
     verdict_sha256: Optional[str] = None

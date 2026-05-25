@@ -11,9 +11,40 @@ from defendablerouter.core.canonicalize import canonicalize_for_hash
 from defendablerouter.core.hash import sha256_bytes
 from defendablerouter.core.ids import utc_now_iso, verdict_id as new_verdict_id
 from defendablerouter.schemas.router_receipt import RouterReceipt
-from defendablerouter.schemas.verdict import RubricScores, Tier, Verdict
+from defendablerouter.schemas.verdict import RubricScores, Severity, Tier, Verdict
 
 VERDICT_VOLATILE = {"created_at", "verdict_sha256"}
+LOW_SCORE_THRESHOLD = 2.0
+_SEVERITY_RANK = {"info": 0, "warn": 1, "critical": 2}
+
+
+def _compute_flags(verdict: Verdict) -> tuple[list[str], Severity]:
+    reasons: list[str] = []
+    severity: Severity = "info"
+
+    def bump(new: Severity) -> None:
+        nonlocal severity
+        if _SEVERITY_RANK[new] > _SEVERITY_RANK[severity]:
+            severity = new
+
+    if verdict.status == "FAILED":
+        reasons.append("GRADING_FAILED")
+        bump("warn")
+    elif verdict.status == "SKIPPED":
+        reasons.append("GRADING_SKIPPED")
+
+    if verdict.tier == "propolis":
+        reasons.append("TIER_PROPOLIS")
+        bump("warn")
+
+    if verdict.rubric_scores is not None:
+        for dim in ("accuracy", "cre_judgment", "format", "score"):
+            v = getattr(verdict.rubric_scores, dim, None)
+            if v is not None and v < LOW_SCORE_THRESHOLD:
+                reasons.append(f"LOW_RUBRIC_{dim.upper()}:{v}")
+                bump("warn")
+
+    return reasons, severity
 
 SYSTEM_PROMPT = (
     "You are SwarmCurator, the in-house grading model for the DefendableOS ecosystem. "
@@ -109,6 +140,7 @@ def grade_receipt(
         base.status = "FAILED"
         base.skip_reason = f"grading failed: {exc}"[:500]
 
+    base.flag_reasons, base.flag_severity = _compute_flags(base)
     base.verdict_sha256 = _hash_verdict(base)
     return base
 

@@ -54,6 +54,9 @@ class IntakeResponse(BaseModel):
     pair_id: Optional[str] = None
     ledger_seqs: Optional[dict] = None
 
+    flag_reasons: Optional[list] = None
+    flag_severity: Optional[str] = None
+
 
 def _runs_dir() -> Path:
     return Path(os.environ.get(RUNS_ENV, DEFAULT_RUNS))
@@ -97,6 +100,8 @@ def _run_full_pipeline(event: RouterEvent, receipt: RouterReceipt, run_dir: Path
     write_verdict(verdict, run_dir)
     summary["grading_status"] = verdict.status
     summary["tier"] = verdict.tier
+    summary["flag_reasons"] = list(verdict.flag_reasons)
+    summary["flag_severity"] = verdict.flag_severity
 
     verdict_ledger = append_payload_file(
         record_type="VERDICT",
@@ -182,6 +187,8 @@ def create_app() -> FastAPI:
             "tier": None,
             "pair_id": None,
             "ledger_seqs": None,
+            "flag_reasons": None,
+            "flag_severity": None,
         }
         if grade and _autograde_enabled():
             try:
@@ -192,6 +199,8 @@ def create_app() -> FastAPI:
                     "tier": None,
                     "pair_id": None,
                     "ledger_seqs": None,
+                    "flag_reasons": ["PIPELINE_ERROR"],
+                    "flag_severity": "critical",
                 }
 
         return IntakeResponse(
@@ -208,6 +217,8 @@ def create_app() -> FastAPI:
             tier=pipeline_summary["tier"],
             pair_id=pipeline_summary["pair_id"],
             ledger_seqs=pipeline_summary["ledger_seqs"],
+            flag_reasons=pipeline_summary.get("flag_reasons"),
+            flag_severity=pipeline_summary.get("flag_severity"),
         )
 
     @app.get("/receipt/{receipt_id}", dependencies=[Depends(_require_token)])
