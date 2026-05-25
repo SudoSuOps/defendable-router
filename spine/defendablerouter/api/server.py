@@ -10,6 +10,7 @@ from pydantic import BaseModel, ConfigDict
 
 from defendablerouter import __version__
 from defendablerouter.agents.swarmcurator_client import SwarmCuratorClient
+from defendablerouter.agents.swarmjelly_client import SwarmJellyClient
 from defendablerouter.config import RouterConfig
 from defendablerouter.core.ddeed import create_ddeed_stub
 from defendablerouter.core.export import (
@@ -140,6 +141,7 @@ def create_app() -> FastAPI:
     def healthz():
         cfg = RouterConfig.from_env()
         curator = SwarmCuratorClient()
+        jelly = SwarmJellyClient()
         return {
             "ok": True,
             "service": "defendablerouter",
@@ -151,6 +153,7 @@ def create_app() -> FastAPI:
             "auth_required": bool(os.environ.get(TOKEN_ENV)),
             "autograde": _autograde_enabled(),
             "curator_reachable": curator.is_reachable(),
+            "jelly_reachable": jelly.is_reachable(),
         }
 
     @app.post(
