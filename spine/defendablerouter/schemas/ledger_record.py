@@ -10,6 +10,7 @@ RecordType = Literal[
     "VERDICT",
     "PAIR",
     "DEED",
+    "AUDIT",
 ]
 
 

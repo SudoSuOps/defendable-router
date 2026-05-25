@@ -12,6 +12,7 @@ from defendablerouter import __version__
 from defendablerouter.agents.swarmcurator_client import SwarmCuratorClient
 from defendablerouter.agents.swarmjelly_client import SwarmJellyClient
 from defendablerouter.config import RouterConfig
+from defendablerouter.core.jelly_audit import audit_verdict, write_audit
 from defendablerouter.core.ddeed import create_ddeed_stub
 from defendablerouter.core.export import (
     finalize_run,
@@ -34,6 +35,7 @@ from defendablerouter.schemas.router_receipt import Provenance, RouterReceipt
 RUNS_ENV = "ROUTER_RUNS_DIR"
 TOKEN_ENV = "STREETCHAT_INTAKE_TOKEN"
 AUTOGRADE_ENV = "ROUTER_AUTOGRADE"
+JELLY_AUDIT_ENV = "ROUTER_JELLY_AUDIT"
 DEFAULT_RUNS = "data/runs"
 
 
@@ -58,6 +60,11 @@ class IntakeResponse(BaseModel):
     flag_reasons: Optional[list] = None
     flag_severity: Optional[str] = None
 
+    jelly_audit_status: Optional[str] = None
+    jelly_audit_verdict: Optional[str] = None
+    jelly_rj_tier: Optional[str] = None
+    audit_id: Optional[str] = None
+
 
 def _runs_dir() -> Path:
     return Path(os.environ.get(RUNS_ENV, DEFAULT_RUNS))
@@ -65,6 +72,11 @@ def _runs_dir() -> Path:
 
 def _autograde_enabled() -> bool:
     return os.environ.get(AUTOGRADE_ENV, "true").strip().lower() not in ("false", "0", "no", "off")
+
+
+def _jelly_audit_enabled() -> bool:
+    # default OFF · jelly is CPU-bound on smash (~5-10s/call) · opt-in
+    return os.environ.get(JELLY_AUDIT_ENV, "false").strip().lower() in ("true", "1", "yes", "on")
 
 
 def _require_token(authorization: Optional[str] = Header(default=None)) -> None:
@@ -127,6 +139,23 @@ def _run_full_pipeline(event: RouterEvent, receipt: RouterReceipt, run_dir: Path
         summary["pair_id"] = pair.pair_id
         summary["ledger_seqs"]["pair"] = pair_ledger.ledger_seq
 
+    # Rail 5: SwarmJelly audit (optional · second opinion on curator's verdict)
+    if _jelly_audit_enabled():
+        audit = audit_verdict(receipt, verdict, event=event, client=SwarmJellyClient())
+        write_audit(audit, run_dir)
+        audit_ledger = append_payload_file(
+            record_type="AUDIT",
+            payload_path=run_dir / "jelly_audit.json",
+            issued_by="SwarmJelly",
+            host=host,
+            base_dir=base_dir,
+        )
+        summary["audit_id"] = audit.audit_id
+        summary["jelly_audit_status"] = audit.status
+        summary["jelly_audit_verdict"] = audit.audit_verdict
+        summary["jelly_rj_tier"] = audit.rj_tier
+        summary["ledger_seqs"]["audit"] = audit_ledger.ledger_seq
+
     return summary
 
 
@@ -152,6 +181,7 @@ def create_app() -> FastAPI:
             "bucket": cfg.bucket,
             "auth_required": bool(os.environ.get(TOKEN_ENV)),
             "autograde": _autograde_enabled(),
+            "jelly_audit": _jelly_audit_enabled(),
             "curator_reachable": curator.is_reachable(),
             "jelly_reachable": jelly.is_reachable(),
         }
@@ -192,6 +222,10 @@ def create_app() -> FastAPI:
             "ledger_seqs": None,
             "flag_reasons": None,
             "flag_severity": None,
+            "jelly_audit_status": None,
+            "jelly_audit_verdict": None,
+            "jelly_rj_tier": None,
+            "audit_id": None,
         }
         if grade and _autograde_enabled():
             try:
@@ -222,6 +256,10 @@ def create_app() -> FastAPI:
             ledger_seqs=pipeline_summary["ledger_seqs"],
             flag_reasons=pipeline_summary.get("flag_reasons"),
             flag_severity=pipeline_summary.get("flag_severity"),
+            jelly_audit_status=pipeline_summary.get("jelly_audit_status"),
+            jelly_audit_verdict=pipeline_summary.get("jelly_audit_verdict"),
+            jelly_rj_tier=pipeline_summary.get("jelly_rj_tier"),
+            audit_id=pipeline_summary.get("audit_id"),
         )
 
     @app.get("/receipt/{receipt_id}", dependencies=[Depends(_require_token)])

@@ -15,6 +15,12 @@ from defendablerouter.schemas.manifest import Manifest, ManifestFile
 from defendablerouter.schemas.verdict import RubricScores, Tier, Verdict, VerdictStatus
 from defendablerouter.schemas.training_pair import TrainingPair
 from defendablerouter.schemas.ledger_record import LedgerRecord, RecordType
+from defendablerouter.schemas.jelly_audit import (
+    AuditStatus,
+    AuditVerdict,
+    JellyAudit,
+    JellyScores,
+)
 
 __all__ = [
     "RouterEvent",
@@ -38,4 +44,8 @@ __all__ = [
     "TrainingPair",
     "LedgerRecord",
     "RecordType",
+    "AuditStatus",
+    "AuditVerdict",
+    "JellyAudit",
+    "JellyScores",
 ]

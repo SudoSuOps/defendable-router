@@ -47,3 +47,7 @@ def ledger_record_id() -> str:
 
 def pair_id() -> str:
     return f"SJP-{utc_date_compact()}-{new_ulid()}"
+
+
+def audit_id() -> str:
+    return f"JLY-{utc_date_compact()}-{new_ulid()}"

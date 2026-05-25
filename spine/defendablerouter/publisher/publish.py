@@ -25,6 +25,7 @@ PAYLOAD_TYPE_MAP = {
     "VERDICT": "verdicts",
     "PAIR": "pairs",
     "DEED": "deeds",
+    "AUDIT": "audits",
 }
 
 NATURAL_ID_KEY = {
@@ -32,6 +33,7 @@ NATURAL_ID_KEY = {
     "VERDICT": "verdict_id",
     "PAIR": "pair_id",
     "DEED": "deed_id",
+    "AUDIT": "audit_id",
 }
 
 
