@@ -20,16 +20,23 @@ from defendablerouter.core.export import (
     write_tribunal_stub,
 )
 from defendablerouter.core.hash import sha256_file
+from defendablerouter.core.ledger import (
+    append_payload_file,
+    read_records,
+    verify_ledger as verify_ledger_chain,
+)
 from defendablerouter.core.receipt import (
     build_receipt,
     finalize_receipt_hashes,
     write_event_input,
     write_receipt,
 )
+from defendablerouter.core.swarmjelly import build_pair, corpus_stats, write_pair
 from defendablerouter.core.tribunal import create_tribunal_stub
+from defendablerouter.core.tribunal_grade import grade_receipt, write_verdict
 from defendablerouter.core.verify import verify_run
 from defendablerouter.schemas.router_event import RouterEvent
-from defendablerouter.schemas.router_receipt import Provenance
+from defendablerouter.schemas.router_receipt import Provenance, RouterReceipt
 
 app = typer.Typer(
     add_completion=False,
@@ -37,8 +44,14 @@ app = typer.Typer(
 )
 receipt_app = typer.Typer(help="Receipt operations.")
 agent_app = typer.Typer(help="Agent operations.")
+tribunal_app = typer.Typer(help="Tribunal grading.")
+ledger_app = typer.Typer(help="DefendableLedger operations.")
+jelly_app = typer.Typer(help="SwarmJelly corpus operations.")
 app.add_typer(receipt_app, name="receipt")
 app.add_typer(agent_app, name="agent")
+app.add_typer(tribunal_app, name="tribunal")
+app.add_typer(ledger_app, name="ledger")
+app.add_typer(jelly_app, name="jelly")
 
 console = Console()
 
@@ -147,6 +160,106 @@ def agent_kimi_review(
     if "skip_reason" in result:
         table.add_row("skip_reason", result["skip_reason"])
     console.print(Panel.fit(table, border_style=style))
+
+
+@tribunal_app.command("grade")
+def tribunal_grade(
+    run: Path = typer.Option(..., exists=True, file_okay=False, dir_okay=True),
+) -> None:
+    """Grade an existing run via SwarmCurator-9B · writes verdict.json · appends to ledger · routes pair."""
+    receipt_path = run / "router_receipt.json"
+    event_path = run / "input.json"
+    if not receipt_path.exists() or not event_path.exists():
+        console.print(f"[red]missing receipt or input in {run}[/red]")
+        raise typer.Exit(code=1)
+
+    receipt = RouterReceipt.model_validate(orjson.loads(receipt_path.read_bytes()))
+    event = RouterEvent.model_validate(orjson.loads(event_path.read_bytes()))
+
+    verdict = grade_receipt(receipt)
+    write_verdict(verdict, run)
+    append_payload_file(
+        record_type="VERDICT",
+        payload_path=run / "verdict.json",
+        issued_by="Tribunal",
+        host=RouterConfig.from_env().host,
+        base_dir=run.parent.parent,
+    )
+
+    pair = build_pair(event, verdict)
+    pair_status = "n/a"
+    if pair is not None:
+        pair_path = write_pair(pair)
+        append_payload_file(
+            record_type="PAIR",
+            payload_path=pair_path,
+            issued_by="SwarmJelly",
+            host=RouterConfig.from_env().host,
+            base_dir=run.parent.parent,
+        )
+        pair_status = f"{pair.pair_id} → {pair.tier}"
+
+    style = {"GRADED": "green", "SKIPPED": "yellow", "FAILED": "red"}.get(verdict.status, "white")
+    table = Table(title=f"Tribunal · {verdict.verdict_id}", show_header=False, box=None)
+    table.add_row("status", f"[{style}]{verdict.status}[/{style}]")
+    table.add_row("verdict_id", verdict.verdict_id)
+    table.add_row("tier", verdict.tier or "—")
+    if verdict.rubric_scores is not None:
+        s = verdict.rubric_scores
+        table.add_row("scores", f"acc={s.accuracy} cre={s.cre_judgment} fmt={s.format} score={s.score}")
+        table.add_row("mean", f"{s.mean:.2f}")
+    if verdict.notes:
+        table.add_row("notes", verdict.notes[:200])
+    if verdict.skip_reason:
+        table.add_row("skip_reason", verdict.skip_reason[:200])
+    table.add_row("pair", pair_status)
+    console.print(Panel.fit(table, border_style=style))
+
+
+@ledger_app.command("verify")
+def ledger_verify() -> None:
+    """Walk the DefendableLedger chain and verify every record_sha256 + parent_hash link."""
+    result = verify_ledger_chain()
+    style = "green" if result.ok else "red"
+    table = Table(title="DefendableLedger · verify", show_header=False, box=None)
+    table.add_row("status", f"[{style}]{'PASS' if result.ok else 'FAIL'}[/{style}]")
+    table.add_row("records_checked", str(result.records_checked))
+    if result.first_break_seq is not None:
+        table.add_row("first_break_seq", str(result.first_break_seq))
+    if result.errors:
+        table.add_row("errors", "\n".join(result.errors[:5]))
+    console.print(Panel.fit(table, border_style=style))
+    if not result.ok:
+        raise typer.Exit(code=1)
+
+
+@ledger_app.command("show")
+def ledger_show(
+    last: int = typer.Option(10, help="Show last N records."),
+) -> None:
+    """Show recent DefendableLedger records."""
+    records = read_records()
+    tail = records[-last:]
+    table = Table(title=f"DefendableLedger · last {len(tail)} of {len(records)}", show_lines=False)
+    table.add_column("seq", justify="right")
+    table.add_column("type")
+    table.add_column("record_id")
+    table.add_column("payload_ref")
+    table.add_column("issued_by")
+    for r in tail:
+        table.add_row(str(r.ledger_seq), r.record_type, r.record_id, r.payload_ref[:50], r.issued_by)
+    console.print(table)
+
+
+@jelly_app.command("stats")
+def jelly_stats() -> None:
+    """Show SwarmJelly corpus counts by Royal Jelly tier."""
+    s = corpus_stats()
+    table = Table(title="SwarmJelly · corpus by tier", show_header=False, box=None)
+    for t in ["apex", "honey", "jelly", "pollen", "propolis"]:
+        table.add_row(t, str(s.get(t, 0)))
+    table.add_row("total", str(s.get("total", 0)))
+    console.print(Panel.fit(table, border_style="green"))
 
 
 @app.command("serve")

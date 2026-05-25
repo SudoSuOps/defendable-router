@@ -35,3 +35,15 @@ def ddeed_stub_id() -> str:
 
 def manifest_id() -> str:
     return f"MANIFEST-{utc_date_compact()}-{new_ulid()}"
+
+
+def verdict_id() -> str:
+    return f"TRIB-{utc_date_compact()}-{new_ulid()}"
+
+
+def ledger_record_id() -> str:
+    return f"DLR-{utc_date_compact()}-{new_ulid()}"
+
+
+def pair_id() -> str:
+    return f"SJP-{utc_date_compact()}-{new_ulid()}"

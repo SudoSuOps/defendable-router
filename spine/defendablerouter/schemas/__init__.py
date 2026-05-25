@@ -12,6 +12,9 @@ from defendablerouter.schemas.router_receipt import (
 from defendablerouter.schemas.tribunal_stub import TribunalStub
 from defendablerouter.schemas.ddeed_stub import DDEEDStub
 from defendablerouter.schemas.manifest import Manifest, ManifestFile
+from defendablerouter.schemas.verdict import RubricScores, Tier, Verdict, VerdictStatus
+from defendablerouter.schemas.training_pair import TrainingPair
+from defendablerouter.schemas.ledger_record import LedgerRecord, RecordType
 
 __all__ = [
     "RouterEvent",
@@ -28,4 +31,11 @@ __all__ = [
     "DDEEDStub",
     "Manifest",
     "ManifestFile",
+    "RubricScores",
+    "Tier",
+    "Verdict",
+    "VerdictStatus",
+    "TrainingPair",
+    "LedgerRecord",
+    "RecordType",
 ]
