@@ -1,6 +1,6 @@
 # DefendableRouter · AI context manifest
 #
-# Last updated: 2026-05-25 (v0.1.0 brand-stack lock · Hedera anchoring doctrine cleanup · operator-entity unification)
+# Last updated: 2026-05-25 (v0.1.0 brand-stack lock · Hedera doctrine cleanup · operator-entity unification · ecosystem-wide contact unification)
 # Generated 2026-05-24 · https://defendablerouter.com/
 
 > DefendableRouter is the drop-in middleware that sits between your AI
@@ -104,5 +104,10 @@ Legacy / superseded (not part of v0.1.0):
 - chat.mrdefendable.com → deprecated
 - defendabledocs.com → consolidated into defendableos.com
 
-## Contact
-build@defendableos.com — all three tiers, one inbox.
+## Contact (canonical · ecosystem-unified v0.1.0)
+
+- Email · [build@swarmandbee.ai](mailto:build@swarmandbee.ai) (Resend-verified ecosystem inbox)
+- X · [@swarmandbee](https://x.com/swarmandbee)
+- LinkedIn · [Donovan Mackey](https://www.linkedin.com/in/donovan-mackey-89a6063b6/) (founder)
+- Hugging Face · [SwarmandBee](https://huggingface.co/SwarmandBee)
+- GitHub · [SudoSuOps](https://github.com/SudoSuOps)

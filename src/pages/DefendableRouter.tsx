@@ -12,7 +12,7 @@
 // other brand surfaces. Cross-links to defendableos.com (mothership) and
 // defendablecloud.com (sister product · hosted inference).
 
-const SALES_EMAIL = "build@defendableos.com";
+const SALES_EMAIL = "build@swarmandbee.ai";
 const X_URL = "https://x.com/swarmandbee";
 const LINKEDIN_URL = "https://www.linkedin.com/in/donovan-mackey-89a6063b6/";
 const GITHUB_ORG_URL = "https://github.com/SudoSuOps";
@@ -1428,7 +1428,7 @@ function Faq() {
     },
     {
       q: "How fast can I be in production?",
-      a: "Docker mode: 30 seconds. Python SDK wrapper: 2 minutes (pip install + 2 lines of code). nginx sidecar: 10 minutes (config file + reload). Self-hosted with local sink: free + zero account creation. Audit pipeline: email build@defendableos.com, key issued same day if no compliance review needed.",
+      a: "Docker mode: 30 seconds. Python SDK wrapper: 2 minutes (pip install + 2 lines of code). nginx sidecar: 10 minutes (config file + reload). Self-hosted with local sink: free + zero account creation. Audit pipeline: email build@swarmandbee.ai, key issued same day if no compliance review needed.",
     },
     {
       q: "What about prompt injection / jailbreak attacks?",
