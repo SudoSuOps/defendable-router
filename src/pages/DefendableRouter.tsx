@@ -20,18 +20,10 @@ const GITHUB_REPO_URL = "https://github.com/SudoSuOps/defendable-router";
 const DEFENDABLEOS_URL = "https://defendableos.com";
 const DEFENDABLECLOUD_URL = "https://defendablecloud.com";
 const DOCS_URL = "https://docs.defendableos.com";
+const CONTACT_URL = "#contact";
 
-const MAILTO_ACCESS = `mailto:${SALES_EMAIL}?subject=${encodeURIComponent(
-  "DefendableRouter · request audit pipeline access",
-)}&body=${encodeURIComponent(
-  "Hi DefendableRouter — \n\nDeployment mode (circle):  Self-hosted OSS (no help)  /  Receipts-tier (pay for grading)  /  Insurance baseline (carrier-ready)\n\nAgent stack (LangChain / LlamaIndex / OpenAI SDK / Anthropic SDK / vLLM / Custom):\n\nDaily call volume (estimate):\n\nCompliance posture needed (HIPAA / GDPR / SOC2 / none):\n\nName / company:\n",
-)}`;
-
-const MAILTO_INSURANCE = `mailto:${SALES_EMAIL}?subject=${encodeURIComponent(
-  "DefendableRouter · insurance baseline intake",
-)}&body=${encodeURIComponent(
-  "Hi DefendableRouter — I want my agent traffic underwritten.\n\nCarrier (if known):\nAgent class (refund / support / underwriting / code / other):\nDaily play volume:\nCurrent audit setup (none / logs / Datadog / LangSmith / other):\n\nName / company:\n",
-)}`;
+const MAILTO_ACCESS = CONTACT_URL;
+const MAILTO_INSURANCE = CONTACT_URL;
 
 export default function DefendableRouter() {
   return (
@@ -65,6 +57,7 @@ export default function DefendableRouter() {
         <GithubBlock />
         <Faq />
         <CtaContact />
+        <ContactFormSection />
       </main>
       <Footer />
       <JsonLd />
@@ -1523,6 +1516,115 @@ function CtaContact() {
   );
 }
 
+type ContactStatus = "idle" | "sending" | "ok" | "error";
+
+function ContactFormSection() {
+  const [status, setStatus] = useState<ContactStatus>("idle");
+  const [errorMsg, setErrorMsg] = useState("");
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    company: "",
+    lane: "receipts-tier",
+    message: "",
+  });
+
+  async function onSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (status === "sending") return;
+    setStatus("sending");
+    setErrorMsg("");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) {
+        const body = (await res.json().catch(() => ({}))) as { error?: string };
+        throw new Error(body.error || `HTTP ${res.status}`);
+      }
+      setStatus("ok");
+      setForm({ name: "", email: "", company: "", lane: form.lane, message: "" });
+    } catch (err: unknown) {
+      setStatus("error");
+      setErrorMsg(err instanceof Error ? err.message : "Send failed");
+    }
+  }
+
+  function setField<K extends keyof typeof form>(key: K, value: (typeof form)[K]) {
+    setForm((current) => ({ ...current, [key]: value }));
+  }
+
+  return (
+    <section id="contact" className="border-t border-amber-500/20 bg-neutral-950/80">
+      <div className="max-w-5xl mx-auto px-6 py-20 lg:py-24">
+        <div className="grid lg:grid-cols-[1fr_1fr] gap-10 items-start">
+          <div>
+            <div className="text-[10px] uppercase tracking-[0.24em] text-amber-400/80 font-semibold font-mono">
+              CONTACT · FOUNDER-ROUTED
+            </div>
+            <h2 className="mt-5 text-3xl md:text-4xl font-semibold tracking-tight text-stone-50">
+              Contact DefendableRouter.
+            </h2>
+            <p className="mt-5 text-base text-stone-400 leading-relaxed">
+              This form routes to <span className="font-mono text-stone-300">{SALES_EMAIL}</span> for self-hosted, receipts-tier, and insurance-baseline intake.
+            </p>
+            <div className="mt-8 rounded-xl border border-stone-800 bg-neutral-950/60 p-6">
+              <div className="text-[10px] uppercase tracking-[0.22em] text-amber-400/80 font-semibold font-mono">Direct</div>
+              <a href={`mailto:${SALES_EMAIL}`} className="mt-3 inline-block font-mono text-lg text-amber-300 hover:text-amber-200">
+                {SALES_EMAIL}
+              </a>
+            </div>
+          </div>
+
+          <form onSubmit={onSubmit} className="rounded-xl border border-stone-800 bg-neutral-950/60 p-6 space-y-4">
+            <FieldRouter label="Lane" required>
+              <select value={form.lane} onChange={(e) => setField("lane", e.target.value)} className={routerInputCls}>
+                <option value="self-hosted">Self-hosted OSS</option>
+                <option value="receipts-tier">Receipts-tier</option>
+                <option value="insurance-baseline">Insurance baseline</option>
+                <option value="other">Other</option>
+              </select>
+            </FieldRouter>
+            <FieldRouter label="Your name" required>
+              <input type="text" required value={form.name} onChange={(e) => setField("name", e.target.value)} className={routerInputCls} autoComplete="name" />
+            </FieldRouter>
+            <FieldRouter label="Email" required>
+              <input type="email" required value={form.email} onChange={(e) => setField("email", e.target.value)} className={routerInputCls} autoComplete="email" />
+            </FieldRouter>
+            <FieldRouter label="Company">
+              <input type="text" value={form.company} onChange={(e) => setField("company", e.target.value)} className={routerInputCls} autoComplete="organization" placeholder="optional" />
+            </FieldRouter>
+            <FieldRouter label="Message" required>
+              <textarea required rows={6} value={form.message} onChange={(e) => setField("message", e.target.value)} className={`${routerInputCls} resize-none leading-relaxed`} placeholder="What stack are you routing, what volume, and what proof path do you need?" />
+            </FieldRouter>
+            {status === "error" && <div className="rounded border border-rose-500/40 bg-rose-500/[0.06] px-4 py-3 text-xs text-rose-300 font-mono">{errorMsg || "Send failed. Email build@swarmandbee.ai directly."}</div>}
+            {status === "ok" && <div className="rounded border border-emerald-500/40 bg-emerald-500/[0.06] px-4 py-3 text-xs text-emerald-300 font-mono">Message received.</div>}
+            <button type="submit" disabled={status === "sending"} className="w-full rounded border border-amber-500 bg-amber-500/10 px-5 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-amber-300 hover:bg-amber-500/20 transition-colors font-mono disabled:opacity-50 disabled:cursor-not-allowed">
+              {status === "sending" ? "sending..." : status === "ok" ? "sent" : "contact router"}
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const routerInputCls =
+  "w-full rounded border border-stone-800 bg-stone-900/80 px-4 py-3 text-sm text-stone-100 placeholder:text-stone-600 outline-none transition-colors focus:border-amber-500 focus:ring-1 focus:ring-amber-500/40 font-mono";
+
+function FieldRouter({ label, required, children }: { label: string; required?: boolean; children: React.ReactNode }) {
+  return (
+    <label className="block">
+      <span className="block text-[11px] uppercase tracking-[0.14em] text-stone-400 font-semibold mb-1.5 font-mono">
+        {label}{required && <span className="text-amber-400 ml-1">*</span>}
+      </span>
+      {children}
+    </label>
+  );
+}
+
 // ─────────────────────────────────────────────────────────────────────────
 // Footer
 // ─────────────────────────────────────────────────────────────────────────
@@ -1668,3 +1770,4 @@ function JsonLd() {
     />
   );
 }
+import { useState } from "react";
