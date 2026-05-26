@@ -5,41 +5,43 @@
 > receipt-spine work**. A public deployed router middleware utility and any DefendableCloud demo
 > integration are **NOT YET VERIFIED** and remain **ROADMAP / FIELD INTEGRATION PENDING** until a
 > public endpoint or Cloud path is deployed and independently audited. It is **not** part of the
-> live DefendableCloud demo path. The operational claims below (drop-in middleware today, a
-> receipt for every routed call, write-only, sub-5ms overhead, ENS-signed receipts, daily
-> Reconciliation Deed, carrier/insurance-ready evidence) are **design intent — not verified, not
-> production-cleared, and not externally enforced**. The `spine/` directory is
+> live DefendableCloud demo path. Claims about deployed middleware behavior, receipt creation for
+> every routed public call, write-only behavior, latency, ENS-signed receipts, reconciliation
+> deeds, or carrier/insurance posture are **design intent — not verified, not production-cleared,
+> and not externally enforced**. The `spine/` directory is
 > **LOCAL SOURCE DEMO / NOT A PUBLIC DEPLOYED UTILITY**.
 
-> We cracked the router. OpenWrt for AI agents.
+> Field integration pending.
 
-Drop-in middleware that sits between your AI agent and any LLM provider, writes a SHA-256 receipt for every call, and ships it to the audit pipeline. Write-only. Sub-5ms POST overhead. Free OSS install. *(Design intent — see STATUS above; not verified or production-cleared.)*
+Public positioning site plus local source demo for the Router track. Use this repo to inspect source, follow the audit tape, and understand the current limitation boundary. *(Design intent and roadmap concepts remain below, but are not verified public deployed behavior.)*
 
 A surface of [DefendableOS](https://defendableos.com).
 
-## What this repo is
+## What this repo is today
 
-The **marketing surface** (defendablerouter.com) — single-page React app, Vite + Tailwind, dual-voice (hacker-energy headline + commercial-grade depth).
+The **public status surface** (`defendablerouter.com`) — single-page React app, Vite + Tailwind, now centered on current audited truth and limitation labels.
 
-The **actual router middleware** ships separately. Watch this org for the binary release.
+The **local source demo** (`spine/`) — inspectable code and tests for receipt-spine work.
+
+The **actual public deployed router middleware** is **not yet independently verified**.
 
 ## Deployment modes
 
-- **EDGE** — runs on a HoneyBox appliance on customer premises (regulated industries · raw data never leaves)
-- **CLOUD** — runs in your own cloud (Docker · k8s · Python SDK · nginx sidecar)
-- **HYBRID** — router in cloud, receipts catch on-prem HoneyBox
+- **EDGE** — roadmap concept
+- **CLOUD** — roadmap concept
+- **HYBRID** — roadmap concept
 
-DefendableHQ NEVER sits in the call path · we are the Bakery (receipt sink + grading), not the proxy.
+These modes describe intended architecture only. They are not accepted as publicly verified deployed behavior.
 
 ## ENS bridge
 
-Every receipt is signed with a per-agent ENS subdomain (`agent-id.operator.defendable.eth`) · daily Reconciliation Deed inherits the cryptographic lineage.
+ENS-linked receipt identity remains roadmap/design-intent material, not accepted public deployed proof.
 
 ## Pricing
 
-- **OSS** · $0 forever · MIT-with-receipt-clause · self-hosted
-- **Receipts** · pay per million · audit pipeline + Tribunal + deeds
-- **Insurance** · priced per engagement · carrier-ready evidence pack
+- **OSS / local source demo** — current public source lane
+- **Receipts / audit pipeline** — roadmap/business lane, not public deployed Router proof
+- **Insurance** — not claimed as currently verified public capability
 
 ## Develop
 

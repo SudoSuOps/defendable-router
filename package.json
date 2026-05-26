@@ -2,7 +2,7 @@
   "name": "defendable-router",
   "version": "0.1.0",
   "private": true,
-  "description": "DefendableRouter — we cracked the router. OpenWrt for AI agents. Drop-in middleware that intercepts agent traffic and writes receipts. Write-only · no blocking · <5ms POST. Free OSS install · paid receipts/grading/insurance.",
+  "description": "DefendableRouter public status surface and local source demo. Public deployed router middleware not yet independently verified; field integration pending.",
   "type": "module",
   "scripts": {
     "dev": "vite",
