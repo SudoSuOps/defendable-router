@@ -36,6 +36,16 @@ const MAILTO_INSURANCE = `mailto:${SALES_EMAIL}?subject=${encodeURIComponent(
 export default function DefendableRouter() {
   return (
     <div className="min-h-screen bg-neutral-950 text-stone-200 antialiased selection:bg-amber-500/30 selection:text-amber-100">
+      {/* Honest status banner (Codex deployed-utility finding F4 — see repo README) */}
+      <div className="bg-amber-500/10 border-b border-amber-500/30 text-amber-100 text-xs sm:text-sm px-4 py-2 text-center">
+        <strong>STATUS: ROADMAP / FIELD INTEGRATION PENDING.</strong>{" "}
+        DefendableRouter is currently a public positioning surface with local source-level
+        receipt-spine work. A public deployed router middleware utility and any DefendableCloud
+        integration are <strong>NOT YET VERIFIED</strong>. Claims of drop-in middleware, a receipt
+        for every routed call, write-only sub-5ms overhead, ENS-signed receipts, daily
+        reconciliation deeds, and carrier/insurance-ready evidence are <strong>design intent, not
+        verified or production-cleared</strong>. Not part of the live DefendableCloud demo path.
+      </div>
       <Header />
       <main>
         <Hero />

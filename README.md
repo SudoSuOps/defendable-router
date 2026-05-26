@@ -1,8 +1,19 @@
 # DefendableRouter
 
+> **STATUS (Codex deployed-utility finding F4 — 2026-05):**
+> DefendableRouter is currently a **public positioning surface with local source-level
+> receipt-spine work**. A public deployed router middleware utility and any DefendableCloud demo
+> integration are **NOT YET VERIFIED** and remain **ROADMAP / FIELD INTEGRATION PENDING** until a
+> public endpoint or Cloud path is deployed and independently audited. It is **not** part of the
+> live DefendableCloud demo path. The operational claims below (drop-in middleware today, a
+> receipt for every routed call, write-only, sub-5ms overhead, ENS-signed receipts, daily
+> Reconciliation Deed, carrier/insurance-ready evidence) are **design intent — not verified, not
+> production-cleared, and not externally enforced**. The `spine/` directory is
+> **LOCAL SOURCE DEMO / NOT A PUBLIC DEPLOYED UTILITY**.
+
 > We cracked the router. OpenWrt for AI agents.
 
-Drop-in middleware that sits between your AI agent and any LLM provider, writes a SHA-256 receipt for every call, and ships it to the audit pipeline. Write-only. Sub-5ms POST overhead. Free OSS install.
+Drop-in middleware that sits between your AI agent and any LLM provider, writes a SHA-256 receipt for every call, and ships it to the audit pipeline. Write-only. Sub-5ms POST overhead. Free OSS install. *(Design intent — see STATUS above; not verified or production-cleared.)*
 
 A surface of [DefendableOS](https://defendableos.com).
 
