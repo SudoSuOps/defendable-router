@@ -1,0 +1,62 @@
+{
+  "release_id": "public-surface-finality-v0.1",
+  "builder": "Codex",
+  "date": "2026-05-26T20:45:00Z",
+  "repos_changed": [
+    "defendable-router",
+    "defendable-docs"
+  ],
+  "baseline_commits": {
+    "defendable-router": "a7c2c8f8886a2b4076a6271ad36127c137312784",
+    "defendable-docs": "47f3a55a0620e0f792bba06718e0c52372e4ea83"
+  },
+  "release_commits": {
+    "defendable-router": "0680f95263d0ce9ac35a180d2c6942f382a3af3e",
+    "defendable-docs": "d91cf80202a3a1e75547cce808b87bbc4a3e201c"
+  },
+  "public_urls_tested": [
+    "https://defendablerouter.com/",
+    "https://defendablerouter.com/llms.txt",
+    "https://defendabledocs.com/field-release/overview/",
+    "https://defendabledocs.com/defendablerouter/overview/",
+    "https://defendabledocs.com/api/router-api/",
+    "https://defendablecloud.com/agent-operations-demo",
+    "https://defendablecloud.com/api/demo/agent-operations/roster",
+    "https://defendablecloud.com/api/demo/agent-operations/evidence",
+    "https://defendablecloud.com/api/demo/agent-operations/action-log",
+    "https://defendablecloud.com/api/demo/agent-operations/actions/classify-ticket",
+    "https://defendablecloud.com/api/demo/agent-operations/actions/draft-response",
+    "https://defendablecloud.com/api/demo/agent-operations/actions/issue-refund",
+    "https://defendablecloud.com/api/demo/agent-operations/actions/request-refund-review"
+  ],
+  "router_status": "FIELD INTEGRATION PENDING; NOT_YET_INTEGRATED; PUBLIC DEPLOYED ROUTER UTILITY NOT VERIFIED; LOCAL SOURCE DEMO ONLY",
+  "cloud_demo_status": "VERIFIED_AS_REPAIRED_WITH_LIMITATIONS; server-side synthetic Pages Functions demo; refund denial server-returned; no external SaaS enforcement; no production clearance",
+  "docs_status": "READY_WITH_LIMITATIONS; Router status pages and Router API pages aligned to roadmap/local-source wording",
+  "actions_verified": {
+    "classify_ticket": "ALLOW_AND_EXECUTE_LOCAL_MOCK",
+    "draft_response": "ALLOW_AND_EXECUTE_LOCAL_MOCK draft_only=true sent_externally=false",
+    "issue_refund": "DENY_ACTION_NOT_IN_PERMISSION_ENVELOPE executed=false real_refund_executed=false external_enforcement_claimed=false",
+    "request_refund_review": "QUEUE_FOR_HUMAN_APPROVAL executed_sensitive_action=false"
+  },
+  "claims_removed_or_labeled": [
+    "live middleware framing",
+    "receipt-for-every-call as current deployed fact",
+    "write-only deployed guarantee",
+    "sub-5ms deployed guarantee",
+    "ENS-signed receipts as live public fact",
+    "daily reconciliation deed as live public fact",
+    "carrier-ready or insurance-ready public claim",
+    "Cloud integration implication"
+  ],
+  "known_limitations": [
+    "DefendableRouter remains a public positioning and local source demonstration surface only",
+    "DefendableRouter is not yet proven in the live DefendableCloud path",
+    "DefendableCloud remains synthetic and not production-cleared",
+    "No external SaaS enforcement is claimed",
+    "Content-integrity hashes are not authorship, approval, certification, insurance, production, anchoring, or external enforcement proof"
+  ],
+  "manifest_hash": "25001ec135267e41f5c12d0951e1b3d375b85323d3b86397586a47683a0661f5",
+  "hash_method": "canonical JSON with self-referential hash fields excluded; content-integrity linkage only",
+  "statement": "Content-integrity only, not authorship, approval, certification, insurance, production clearance, blockchain anchoring, or external enforcement.",
+  "receipt_hash": "1bde7844e604205937217cf13c7444a0eb012abb04e7eed30d3721d73ff8e589"
+}

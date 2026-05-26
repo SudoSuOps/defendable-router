@@ -1,0 +1,52 @@
+HTTP/2 200 
+date: Tue, 26 May 2026 20:40:09 GMT
+content-type: application/json
+content-length: 1358
+cache-control: no-store
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=McZau%2F%2Fe4AQKTR%2FIeDTM%2FRyuDPd6OvjbpmyoFq%2FoqNGMa8Va3DFHYElaTnmHDvB2OZ5937%2FmadjxeAfbcA3dEnyJWuZDGOpx4kK%2B7L%2BQi2vDdwB51kqDLOMplnvNmdTFdrPGScP%2B"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-cache-status: DYNAMIC
+cf-ray: a01f97e19ec25593-MIA
+alt-svc: h3=":443"; ma=86400
+
+{
+  "company": "acme-helpdesk",
+  "position_group": "customer_support",
+  "environment": "SYNTHETIC_DEMO_ONLY",
+  "starter": {
+    "id": "support-01.acme.defendable.eth",
+    "status": "INJURED_RESERVE",
+    "allowed": []
+  },
+  "backup": {
+    "id": "support-02.acme.defendable.eth",
+    "status": "ACTIVE_BACKUP_RESTRICTED_DUTY",
+    "allowed": [
+      "classify_ticket",
+      "draft_customer_response",
+      "route_escalation",
+      "update_case_notes"
+    ]
+  },
+  "denied": [
+    "issue_refund",
+    "make_policy_exception",
+    "close_compliance_case"
+  ],
+  "coverage": "COVERED_BY_BACKUP_RESTRICTED_DUTY",
+  "human_owner": "Support Manager / Mr D (synthetic demo owner role)",
+  "approved_plays": [
+    "classify_ticket",
+    "draft_customer_response",
+    "route_escalation",
+    "update_case_notes"
+  ],
+  "blocked_plays": [
+    "issue_refund",
+    "make_policy_exception",
+    "close_compliance_case"
+  ],
+  "limitation": "Synthetic demo only. Does not restrict external SaaS, execute real refunds, or grant production clearance.",
+  "hash_integrity_note": "SHA-256 hashes in this prototype establish content-integrity linkage only. They do not independently prove authorship, owner approval, trusted timestamping, immutability, blockchain anchoring, external attestation, certification, insurance coverage, or external platform enforcement."
+}

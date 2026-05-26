@@ -1,0 +1,40 @@
+{
+  "release_id": "public-surface-finality-v0.1",
+  "builder": "Codex",
+  "date": "2026-05-26T20:45:00Z",
+  "repos_changed": {
+    "defendable-router": {
+      "baseline_commit": "a7c2c8f8886a2b4076a6271ad36127c137312784",
+      "release_commit": "0680f95263d0ce9ac35a180d2c6942f382a3af3e"
+    },
+    "defendable-docs": {
+      "baseline_commit": "47f3a55a0620e0f792bba06718e0c52372e4ea83",
+      "release_commit": "d91cf80202a3a1e75547cce808b87bbc4a3e201c"
+    },
+    "defendable-cloud": {
+      "checked_commit": "63847e011ae80f4304d077294a5318792bf41555"
+    }
+  },
+  "files": {
+    "CLOUD_DOCS_ALIGNMENT_CHECK.md": "e6e8c7e757250eeac4c448af6cbe21fe38b9e762ea3582265acbe0eae8e1ff01",
+    "PUBLIC_SURFACE_FINALITY_REPORT.md": "3cd27f8b3eccdd937b782a7510895c8b74a553d61b93ec2704d62a74f482081d",
+    "PUBLIC_URL_TEST_RESULTS.md": "28c55dc89ca3dbd5ac734f47553c2cf35d7d581a3a22dc15c324b3e6afe11809",
+    "ROUTER_REPAIR_PROOF.md": "5eb2326f34c3aec393e8474ece9f8787c79baa59d7fe3efe969e1be20e1a96d3",
+    "SAFETY_GATE_RESULT.md": "73afad198e0db83d91c34765c9e82292c5380323fd2c070d7b26c55475a98b06",
+    "cloud_action_log_live.txt": "c89bde3319e4970d980efa1e884cdf27fdf17084dc2a23a38112cfe10dbffaaf",
+    "cloud_classify_live.txt": "f4ad65c5cb91a4ef81942f9eeacb187d7f73f3dd9957aad7589f2a575a7a3099",
+    "cloud_demo_live.html": "b8ce6d778b81b2267a88b396e266f88e8670481458df608c6e43211aebdb39d1",
+    "cloud_draft_live.txt": "435a3417c8f0d0f1a8583cd3059dabe1ddeef1ffb344af6190d9dd26e159b1b2",
+    "cloud_evidence_live.txt": "9e169dd104e1a2178ee58384f7f9e687e7f92e28d5021a304e9d80b0c83e4013",
+    "cloud_issue_refund_live.txt": "3bb849fe21b932f7658576cc7b124255858f740723b65b49a16680df5d721291",
+    "cloud_request_refund_review_live.txt": "7886323d90b9ebe15175982ac8429ff306a567a67bb3b2e5f6dda3a5fe9f5455",
+    "cloud_roster_live.txt": "9eaa097da464f3d85526b06805e76e34a7dab8c13b33ef2d1a7b042bd2367a07",
+    "docs_field_release_overview_live.txt": "992f9a309c08815f83f8d57e2eae964cd07e11940ad7f2e345af569ab423ddaf",
+    "docs_router_api_live.txt": "327a6c8d002f3bf58fca53f8e833e1b2de0bb217834f003ad28f6eab6bcf872f",
+    "docs_router_overview_live.txt": "8397cacd67cdf2f6173ff53096b1df4742bc1bd45689f6bc765d97a6c877e9fd",
+    "router_homepage_live.txt": "e77eaadc976dfcdfe7b3bb64f6c9483c40eb9d3e690875333254ea43f1598213",
+    "router_llms_live.txt": "db4eb936f76cab8bb836ae5edeaf471a32252852690c6cc1c50bdbc32aa6d844"
+  },
+  "hash_method": "canonical JSON with self-referential hash fields excluded; content-integrity linkage only",
+  "manifest_hash": "25001ec135267e41f5c12d0951e1b3d375b85323d3b86397586a47683a0661f5"
+}

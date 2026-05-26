@@ -1,0 +1,72 @@
+HTTP/2 200 
+date: Tue, 26 May 2026 20:39:47 GMT
+content-type: text/html; charset=utf-8
+access-control-allow-origin: *
+cache-control: public, max-age=300, s-maxage=300, stale-while-revalidate=86400
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+link: </llms.txt>; rel="alternate"; type="text/plain"; title="AI context manifest"
+permissions-policy: camera=(), microphone=(), geolocation=()
+referrer-policy: strict-origin-when-cross-origin
+x-ai-context: defendablerouter
+x-content-type-options: nosniff
+x-defendable-doctrine: validate-the-validator
+x-defendable-energy: openwrt
+x-defendable-surface: agent-middleware
+x-frame-options: SAMEORIGIN
+x-robots-tag: index, follow, max-snippet:-1, max-image-preview:large
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=9R9B%2BypaFjpcFI4pZ4z03mp3fdr%2Frqv50gH3J20Mbel8JicmmbOITCS0UcycdiWMtbyu0HQhdl9xl5r%2FYqJKhw6CwfmPUIdvHjmCMRMZakE2pNrkmWt%2BxPoh4nElJt23pa9WBXgpMg%3D%3D"}]}
+server: cloudflare
+cf-cache-status: DYNAMIC
+cf-ray: a01f975b8d2f4645-MIA
+alt-svc: h3=":443"; ma=86400
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>DefendableRouter · Field Integration Pending</title>
+    <meta
+      name="description"
+      content="DefendableRouter is currently a public positioning and local source demonstration surface. Public deployed router middleware is not yet independently verified. DefendableCloud integration is not yet proven. Field integration remains pending."
+    />
+    <link rel="canonical" href="https://defendablerouter.com/" />
+    <meta name="theme-color" content="#0a0a0a" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="DefendableRouter" />
+    <meta property="og:url" content="https://defendablerouter.com/" />
+    <meta property="og:title" content="DefendableRouter · Field Integration Pending" />
+    <meta
+      property="og:description"
+      content="Public positioning and local source demonstration surface only. Public deployed router middleware is not yet independently verified, and DefendableCloud integration is not yet proven."
+    />
+    <meta property="og:image" content="https://defendablerouter.com/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="DefendableRouter · field integration pending" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="DefendableRouter · Field Integration Pending" />
+    <meta
+      name="twitter:description"
+      content="Public positioning and local source demonstration surface only. Public deployed router middleware is not yet independently verified, and DefendableCloud integration is not yet proven."
+    />
+    <meta name="twitter:image" content="https://defendablerouter.com/og-image.png" />
+    <meta name="twitter:image:alt" content="DefendableRouter · field integration pending" />
+    <meta name="twitter:site" content="@swarmandbee" />
+    <meta name="twitter:creator" content="@swarmandbee" />
+
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Swarm and Bee LLC · DBA Swarm & Bee AI · Florida · D-U-N-S 138652395" />
+    <meta name="keywords" content="DefendableRouter, accountable AI, router status, audit tape, local source demo, field integration pending, DefendableOS" />
+
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="AI context manifest" />
+    <script type="module" crossorigin src="/assets/index-BzXDhSTE.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BuM0u-u7.css">
+  </head>
+  <body class="bg-neutral-950">
+    <div id="root"></div>
+  </body>
+</html>

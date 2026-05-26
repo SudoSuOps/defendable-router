@@ -1,0 +1,42 @@
+HTTP/2 200 
+date: Tue, 26 May 2026 20:40:08 GMT
+content-type: application/json
+content-length: 1091
+cache-control: no-store
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=QQHwDqxZ4S3l8Wc3So9TssyrWlaFpdBGqJYg9BzHQp0o1O0quAv3cR2g1cXh4FrRXsTP4tiB6QSptpRuJ%2BW8UgblB2qlbQZQpquO15Wf2%2Bj9RiZ3MWx5QKyqvj4haAHKae2BERdN"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-cache-status: DYNAMIC
+cf-ray: a01f97dc4e11c5de-MIA
+alt-svc: h3=":443"; ma=86400
+
+{
+  "demo_environment": "SYNTHETIC_DEMO_ONLY",
+  "stateless_note": "Cloudflare Pages Functions are stateless; this is a deterministic synthetic summary, not a live persistent counter. refund_execution_count is 0 by construction (no server code path executes a refund).",
+  "refund_execution_count": 0,
+  "refund_execution_possible_server_side": false,
+  "denied_refund_count": 1,
+  "denied_refund_decision": "DENY_ACTION_NOT_IN_PERMISSION_ENVELOPE",
+  "human_review_queue_count": 1,
+  "human_review_executes_sensitive_action": false,
+  "allowed_mock_action_count": 2,
+  "allowed_actions": [
+    "classify_ticket",
+    "draft_customer_response",
+    "route_escalation",
+    "update_case_notes"
+  ],
+  "denied_actions": [
+    "issue_refund",
+    "make_policy_exception",
+    "close_compliance_case"
+  ],
+  "external_enforcement_claimed": false,
+  "production_clearance": false,
+  "limitations": [
+    "synthetic demo only",
+    "no external SaaS enforcement",
+    "no real refund execution"
+  ],
+  "hash_method": "canonical JSON, self-referential hash field excluded; content-integrity only"
+}

@@ -1,0 +1,48 @@
+HTTP/2 200 
+date: Tue, 26 May 2026 20:40:08 GMT
+content-type: application/json
+content-length: 1655
+cache-control: no-store
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=MJInHK1EGbnoBhV%2Fh8cs413G9l8ULIiWJXUU6uJgcqudlm2uqmUpE0iIfXb6yvMGhZZl%2FVqilr4G4HAOR0fAtoVZ%2FuCHWi2xr%2BgfmqihweJSbh7ggx8MdIE38c3gLKF3XwlMdSYn"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-cache-status: DYNAMIC
+cf-ray: a01f97deff5dcedc-MIA
+alt-svc: h3=":443"; ma=86400
+
+{
+  "audited_modules": [
+    {
+      "name": "swarm-doctor",
+      "repo": "https://github.com/SudoSuOps/swarm-doctor",
+      "verdict": "VERIFIED_AS_REPAIRED_WITH_LIMITATIONS"
+    },
+    {
+      "name": "conditioning-coach",
+      "repo": "https://github.com/SudoSuOps/conditioning-coach",
+      "verdict": "VERIFIED_AS_REPAIRED_WITH_LIMITATIONS"
+    },
+    {
+      "name": "owner-roster-registry",
+      "repo": "https://github.com/SudoSuOps/owner-roster-registry",
+      "verdict": "VERIFIED_AS_REPAIRED_WITH_LIMITATIONS"
+    },
+    {
+      "name": "permission-broker",
+      "repo": "https://github.com/SudoSuOps/permission-broker",
+      "verdict": "VERIFIED_AS_REPAIRED_WITH_LIMITATIONS"
+    }
+  ],
+  "tribunal_audit_repo": "https://github.com/SudoSuOps/defendableos-tribunal-audit",
+  "reaudit_head": "284d92b096e17a23ee7977f9f084d877e221368b",
+  "manifest_sha256": "f5895e120a39d48cfa8f4d319c0fd9db8670916f0a19c77b89486189dca50c49",
+  "receipt_sha256": "c8d672e29c804255871d8a5d797aa145442080a87d2131e49fc45846ce95624a",
+  "readiness": {
+    "public_demo": "READY_WITH_LIMITATIONS",
+    "defendabledocs": "READY_WITH_LIMITATIONS",
+    "defendablecloud_api_promotion": "READY_WITH_LIMITATIONS",
+    "production_deployment": "NOT CLEARED FOR PRODUCTION",
+    "external_saas_enforcement": "NOT CLEARED FOR EXTERNAL SAAS ENFORCEMENT"
+  },
+  "hash_integrity_note": "SHA-256 hashes in this prototype establish content-integrity linkage only. They do not independently prove authorship, owner approval, trusted timestamping, immutability, blockchain anchoring, external attestation, certification, insurance coverage, or external platform enforcement."
+}

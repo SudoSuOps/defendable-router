@@ -1,0 +1,75 @@
+HTTP/2 200 
+date: Tue, 26 May 2026 20:39:50 GMT
+content-type: text/plain; charset=utf-8
+content-length: 2304
+access-control-allow-origin: *
+cache-control: public, max-age=3600, s-maxage=3600
+etag: "16d5f15268796e04f24e552d2acd8195"
+permissions-policy: camera=(), microphone=(), geolocation=()
+referrer-policy: strict-origin-when-cross-origin
+x-ai-context: defendablerouter
+x-content-type-options: nosniff
+x-defendable-doctrine: validate-the-validator
+x-defendable-energy: openwrt
+x-defendable-surface: agent-middleware
+x-frame-options: SAMEORIGIN
+x-robots-tag: index, follow, max-snippet:-1, max-image-preview:large
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=aax42R3qrkAlomPSoIyeEsMrjwZS%2FU1A4DVUlhoNCfUL%2BAqGM%2FpZ%2BCLYUaa%2BRC4UdmIkgBK1N78S8vPTnRAudIRGx7qq6dx92pTHGaR4QgHcCsmktzpU4kK6sM7A1Mn4HFqNTC23nA%3D%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-cache-status: DYNAMIC
+cf-ray: a01f976bcd3f6e24-MIA
+alt-svc: h3=":443"; ma=86400
+
+# DefendableRouter · AI context manifest
+#
+# Last updated: 2026-05-26
+# Generated for https://defendablerouter.com/
+
+> DefendableRouter is currently a public positioning and local source
+> demonstration surface. Public deployed router middleware is not yet
+> independently verified. DefendableCloud integration is not yet proven.
+> Field integration remains pending.
+
+## Current status
+- FIELD INTEGRATION PENDING
+- NOT_YET_INTEGRATED
+- PUBLIC DEPLOYED ROUTER UTILITY NOT VERIFIED
+- LOCAL SOURCE DEMO ONLY
+
+## What is public today
+- public site: https://defendablerouter.com/
+- public source repo: https://github.com/SudoSuOps/defendable-router
+- public docs status pages: https://defendabledocs.com/defendablerouter/overview/
+- public audit tape: https://github.com/SudoSuOps/defendableos-tribunal-audit
+
+## What is not proven today
+- deployed public router middleware utility
+- Cloud demo integration path
+- receipt creation for every routed public call
+- public write-only behavior or latency guarantees
+- ENS-signed receipts or reconciliation deeds on a public deployed surface
+- insurance, carrier-ready evidence, production clearance, or external SaaS enforcement
+
+## Local source note
+The repository contains local source-level receipt-spine work under
+`spine/`. That is source material for inspection and local build work,
+not proof of a publicly verified deployed Router utility.
+
+## Cloud relationship
+The accepted live DefendableCloud demo is a server-side synthetic Pages
+Functions flow. Router is not currently proven to be in that path.
+
+## Hash limitation
+SHA-256 evidence in this prototype establishes content-integrity linkage
+only. It does not independently prove authorship, owner approval,
+trusted timestamping, immutability, blockchain anchoring, certification,
+insurance coverage, production clearance, or external platform
+enforcement.
+
+## Contact
+- Email · [build@swarmandbee.ai](mailto:build@swarmandbee.ai)
+- GitHub · [SudoSuOps](https://github.com/SudoSuOps)
+- DefendableOS · [defendableos.com](https://defendableos.com)
+- DefendableCloud demo · [defendablecloud.com/agent-operations-demo](https://defendablecloud.com/agent-operations-demo)
+- DefendableDocs field release · [defendabledocs.com/field-release/overview/](https://defendabledocs.com/field-release/overview/)

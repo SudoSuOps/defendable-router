@@ -1,0 +1,38 @@
+HTTP/2 200 
+date: Tue, 26 May 2026 20:43:55 GMT
+content-type: application/json
+content-length: 1024
+cache-control: no-store
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=Y4W6NKQ4ca5tmicXfeRIFxqBOFqFktwbfYTZ1F%2Bletl9YOpNon1WWGnRqyviAJTRYA5OAZcLuAHyoI1H9sScJGaLtddUEoUCjTrLEXbC2MtxCUQlcThAFBEF8hB2Xe4lD4f%2B3g6D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-cache-status: DYNAMIC
+cf-ray: a01f9d6a7c99a4f2-MIA
+alt-svc: h3=":443"; ma=86400
+
+{
+  "receipt_id": "enf-3d21c965-d",
+  "actor_id": "support-02.acme.defendable.eth",
+  "requested_action": "request_refund_review",
+  "decision": "QUEUE_FOR_HUMAN_APPROVAL",
+  "executed": false,
+  "executed_sensitive_action": false,
+  "detail": "Request queued for human review. No refund executed. Agent authority was not expanded.",
+  "local_mock_record_id": null,
+  "environment": "SYNTHETIC_DEMO_ONLY",
+  "starter_authority_inherited": false,
+  "external_enforcement_claimed": false,
+  "production_clearance": false,
+  "real_refund_executed": false,
+  "served_by": "cloudflare_pages_function_server_side",
+  "timestamp": "2026-05-26T20:43:55.951Z",
+  "limitations": [
+    "synthetic demo only",
+    "broker-routed local mock only",
+    "no external SaaS enforcement",
+    "no real refund execution",
+    "not cleared for production"
+  ],
+  "hash_method": "canonical JSON, self-referential hash field excluded; content-integrity only",
+  "receipt_hash": "1ae77972128362e9ebcc2f7c81aae6ad86efe050435e4a2723d28addb2a35cf6"
+}

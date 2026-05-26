@@ -1,0 +1,37 @@
+HTTP/2 200 
+date: Tue, 26 May 2026 20:43:56 GMT
+content-type: application/json
+content-length: 987
+cache-control: no-store
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=4CD4Kd7xSy8R0r5JFdfurjDEpDEOfsFBIFy2M8L08p2W6xP%2FfKJvZAklHp9MSbQqyH5XWNGs2BzZwpA%2BLE4WvlMRvxQDol8H%2BkWrKFuiuruH%2BG0zeu5aiOCS4GV1Z6CayAF0d%2Bde"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-cache-status: DYNAMIC
+cf-ray: a01f9d6d4d23571f-MIA
+alt-svc: h3=":443"; ma=86400
+
+{
+  "receipt_id": "enf-2377ffdb-0",
+  "actor_id": "support-02.acme.defendable.eth",
+  "requested_action": "issue_refund",
+  "decision": "DENY_ACTION_NOT_IN_PERMISSION_ENVELOPE",
+  "executed": false,
+  "detail": "No refund was executed. Action is outside the restricted-duty permission envelope.",
+  "local_mock_record_id": null,
+  "environment": "SYNTHETIC_DEMO_ONLY",
+  "starter_authority_inherited": false,
+  "external_enforcement_claimed": false,
+  "production_clearance": false,
+  "real_refund_executed": false,
+  "served_by": "cloudflare_pages_function_server_side",
+  "timestamp": "2026-05-26T20:43:56.389Z",
+  "limitations": [
+    "synthetic demo only",
+    "broker-routed local mock only",
+    "no external SaaS enforcement",
+    "no real refund execution",
+    "not cleared for production"
+  ],
+  "hash_method": "canonical JSON, self-referential hash field excluded; content-integrity only",
+  "receipt_hash": "8483dfe3ddd1d1aee655963d58e313a5a117f64279e505fdc063879852a4ddef"
+}

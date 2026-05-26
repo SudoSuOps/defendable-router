@@ -1,0 +1,39 @@
+HTTP/2 200 
+date: Tue, 26 May 2026 20:43:56 GMT
+content-type: application/json
+content-length: 1039
+cache-control: no-store
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=FIKoTH3W14mxX9WyAh%2Bk74E4oH%2F4toExTcgMk4qPfxUCLxr52vgRMb564CD46wcyV2MuM2tFT4csMXZ634nOLwTQZeIw6hLBL0vIUT57czQlbG3vwvysTIbNrVERUD%2FVhL%2BcU655"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-cache-status: DYNAMIC
+cf-ray: a01f9d6fcc55a4e6-MIA
+alt-svc: h3=":443"; ma=86400
+
+{
+  "receipt_id": "enf-7374f068-2",
+  "actor_id": "support-02.acme.defendable.eth",
+  "requested_action": "draft_customer_response",
+  "decision": "ALLOW_AND_EXECUTE_LOCAL_MOCK",
+  "executed": true,
+  "draft_only": true,
+  "sent_externally": false,
+  "detail": "DRAFT ONLY — NOT SENT EXTERNALLY. Stored in the synthetic demo store.",
+  "local_mock_record_id": "mock-94c9ef6e-7",
+  "environment": "SYNTHETIC_DEMO_ONLY",
+  "starter_authority_inherited": false,
+  "external_enforcement_claimed": false,
+  "production_clearance": false,
+  "real_refund_executed": false,
+  "served_by": "cloudflare_pages_function_server_side",
+  "timestamp": "2026-05-26T20:43:56.803Z",
+  "limitations": [
+    "synthetic demo only",
+    "broker-routed local mock only",
+    "no external SaaS enforcement",
+    "no real refund execution",
+    "not cleared for production"
+  ],
+  "hash_method": "canonical JSON, self-referential hash field excluded; content-integrity only",
+  "receipt_hash": "1b690b50c2dc878f0647b41a3f71d340dc4a267d5545d95f1a453e6bf3b0b58f"
+}
