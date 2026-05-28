@@ -10,6 +10,7 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
 
+from defendablerouter.agents.hermes_review import review_receipt as hermes_review_receipt
 from defendablerouter.agents.kimi_review import review_receipt as kimi_review_receipt
 from defendablerouter.config import RouterConfig
 from defendablerouter.core.ddeed import create_ddeed_stub
@@ -154,6 +155,34 @@ def agent_kimi_review(
         "SKIPPED": "yellow",
     }.get(verdict, "white")
     table = Table(title="Kimi Router Review", show_header=False, box=None)
+    table.add_row("verdict", f"[{style}]{verdict}[/{style}]")
+    table.add_row("model", result.get("model", ""))
+    table.add_row("findings", str(len(result.get("findings", []))))
+    table.add_row("missing_fields", str(len(result.get("missing_fields", []))))
+    table.add_row("schema_risks", str(len(result.get("schema_risks", []))))
+    if "skip_reason" in result:
+        table.add_row("skip_reason", result["skip_reason"])
+    console.print(Panel.fit(table, border_style=style))
+
+
+@agent_app.command("hermes-review")
+def agent_hermes_review(
+    run: Path = typer.Option(..., exists=True, file_okay=False, dir_okay=True),
+) -> None:
+    """Run Hermes review over the receipt. Skips cleanly if the local Hermes endpoint is unreachable.
+
+    Defaults to hermes3:8b at http://localhost:11434/v1 (Ollama). When the
+    doctrine LoRA finishes:  HERMES_MODEL=hermes-defendable:8b
+    """
+    result = hermes_review_receipt(run)
+    verdict = result.get("verdict", "UNKNOWN")
+    style = {
+        "PASS": "green",
+        "WARN": "yellow",
+        "FAIL": "red",
+        "SKIPPED": "yellow",
+    }.get(verdict, "white")
+    table = Table(title="Hermes Router Review", show_header=False, box=None)
     table.add_row("verdict", f"[{style}]{verdict}[/{style}]")
     table.add_row("model", result.get("model", ""))
     table.add_row("findings", str(len(result.get("findings", []))))
