@@ -7,8 +7,9 @@ from defendable_router.core.pricing import ANNUAL_MEMBERSHIP_PRICE_USD
 from defendable_router.core.time import utc_now
 from defendable_router.db.models import ComputeJob, ComputeNode, ComputeNodeStatus, Dataset, JobLease, JobLeaseStatus, JobStatus, JobStatusEvent, Member, MemberStatus, Worker, WorkerStatus
 from defendable_router.db.session import get_db
+from defendable_router.core.security import require_read_token
 
-router = APIRouter(prefix="/admin", tags=["admin"])
+router = APIRouter(prefix="/admin", tags=["admin"], dependencies=[Depends(require_read_token)])
 
 
 def _as_aware_utc(value):

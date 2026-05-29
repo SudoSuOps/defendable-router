@@ -1,9 +1,10 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 
 from defendable_router.core.config import get_settings
 from defendable_router.core.receipts import read_chain, verify_ledger
+from defendable_router.core.security import require_read_token
 
-router = APIRouter(prefix="/receipts", tags=["receipts"])
+router = APIRouter(prefix="/receipts", tags=["receipts"], dependencies=[Depends(require_read_token)])
 
 
 @router.get("")
