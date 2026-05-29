@@ -1,0 +1,2 @@
+{"id":"ds_finance_gold","title":"Curated Finance Signals","domain":"finance","quality_tier":"gold","object_uri":"s3://defendable-datasets/finance/gold"}
+{"id":"ds_security_royal","title":"Security Incident Royal Jelly","domain":"security","quality_tier":"royal_jelly","object_uri":"s3://defendable-datasets/security/royal"}

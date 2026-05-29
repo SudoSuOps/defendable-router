@@ -1,0 +1,10 @@
+.venv
+__pycache__
+.pytest_cache
+.git
+data/receipts/*.jsonl
+*.db
+*.sqlite
+.env
+dist
+build

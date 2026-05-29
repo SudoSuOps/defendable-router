@@ -1,0 +1,76 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: unit tests (pytest)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+      - name: Install package
+        run: python -m pip install -e ".[dev]"
+      - name: Run tests
+        run: pytest -ra
+
+  smoke:
+    name: boot smoke (init-db · seed · health · pricing · gate)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+      - name: Install package
+        run: python -m pip install -e ".[dev]"
+      - name: Initialize + seed local DB
+        run: |
+          mkdir -p data/receipts
+          defendable-router init-db
+          defendable-router seed-demo
+      - name: Boot API
+        run: |
+          nohup uvicorn defendable_router.main:app --host 127.0.0.1 --port 8088 > uvicorn.log 2>&1 &
+          for i in $(seq 1 30); do
+            sleep 1
+            curl -sf http://127.0.0.1:8088/health >/dev/null && break
+          done
+      - name: Assert health is OK
+        run: |
+          curl -sf http://127.0.0.1:8088/health | tee /tmp/health.json
+          grep -q '"db_status":"ok"' /tmp/health.json
+      - name: Assert pricing is server-side and correct ($10 / $6)
+        run: |
+          set -e
+          q6000=$(curl -sf -X POST http://127.0.0.1:8088/compute/quote \
+            -H 'content-type: application/json' \
+            -d '{"member_id":"mem_demo_active_1","requested_gpu_sku":"rtx6000_blackwell_96gb","estimated_hours":2,"job_type":"fine_tune"}')
+          echo "rtx6000 2h => $q6000"
+          echo "$q6000" | grep -q '"estimated_cost_usd":10' || (echo "expected \$10.00" && exit 1)
+          q5090=$(curl -sf -X POST http://127.0.0.1:8088/compute/quote \
+            -H 'content-type: application/json' \
+            -d '{"member_id":"mem_demo_active_1","requested_gpu_sku":"rog_astral_5090_32gb","estimated_hours":3,"job_type":"inference"}')
+          echo "5090 3h => $q5090"
+          echo "$q5090" | grep -q '"estimated_cost_usd":6' || (echo "expected \$6.00" && exit 1)
+      - name: Assert inactive member is gated (403)
+        run: |
+          code=$(curl -s -o /dev/null -w '%{http_code}' -X POST \
+            http://127.0.0.1:8088/datasets/ds_finance_gold/access \
+            -H 'content-type: application/json' \
+            -d '{"member_id":"mem_demo_inactive_1"}')
+          echo "inactive access => HTTP $code"
+          [ "$code" = "403" ]
+      - name: Dump server log on failure
+        if: failure()
+        run: cat uvicorn.log

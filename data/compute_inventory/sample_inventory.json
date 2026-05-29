@@ -1,0 +1,4 @@
+[
+  {"hostname": "rails-6000-01", "gpu_type": "rtx6000_blackwell_96gb"},
+  {"hostname": "smash-5090-01", "gpu_type": "rog_astral_5090_32gb"}
+]

@@ -6,3 +6,11 @@ dist
 .env.*
 !.env.example
 tsconfig.tsbuildinfo
+.venv
+__pycache__/
+*.py[cod]
+.pytest_cache/
+data/*.db
+data/*.sqlite
+data/receipts/*.jsonl
+*.egg-info/
