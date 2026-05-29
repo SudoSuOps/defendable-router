@@ -91,5 +91,15 @@ def quote(member_id: str = typer.Option(...), gpu: str = typer.Option(...), hour
         print({"member_id": member_id, "gpu": gpu, "gpu_display_name": GPU_PRICING[gpu]["display_name"], "hourly_rate_usd": float(hourly_rate), "estimated_hours": hours, "estimated_cost_usd": float(estimated_cost), "receipt_id": receipt["receipt_id"]})
 
 
+@app.command("verify-ledger")
+def verify_ledger_command():
+    from defendable_router.core.config import get_settings
+    from defendable_router.core.receipts import verify_ledger
+
+    result = verify_ledger(get_settings().receipts_dir)
+    print(result)
+    raise typer.Exit(code=0 if result["ok"] else 1)
+
+
 if __name__ == "__main__":
     app()

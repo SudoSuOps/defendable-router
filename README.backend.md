@@ -5,7 +5,8 @@
 > the v0.2 DefendableWorker contract (register → lease → complete/fail), and independent
 > verification of all 23 ledger receipt checksums + a tamper test. Still v0.1: SQLite + local JSONL
 > receipts; member/admin endpoints are unauthenticated (only `/workers/*` carries bearer auth) and
-> must not be exposed publicly. Receipts are checksummed but not yet hash-chained. See *Known Limitations*.
+> must not be exposed publicly. Receipts are **hash-chained** (`seq` + `parent_hash`, verifiable via
+> `GET /receipts/verify` / `defendable-router verify-ledger`), mirroring the DefendableCloud chain. See *Known Limitations*.
 
 DefendableRouter is the first backend spine for DefendableCloud: the member gate, dataset access broker, compute meter, job router, and receipt ledger for member-only datasets and hourly GPU compute.
 
@@ -289,6 +290,8 @@ Each important action emits a receipt:
 - Fine-tune job creation/completion: `fine_tune_job`
 
 Each receipt includes a `checksum_sha256`. The checksum is SHA256 over a canonical JSON string of the receipt payload excluding the checksum field itself. Decimal values are normalized to two-place strings, timestamps are ISO formatted, and JSON keys are sorted.
+
+**Hash chain.** Receipts are chained, mirroring the DefendableCloud per-org chain. Each receipt also carries a `seq` (monotonic from `0`) and a `parent_hash` equal to the prior receipt's `checksum_sha256` (genesis = 64 zeros); both are inside the hashed body, so the link is tamper-evident. The router keeps one house-wide chain. Validate it with `GET /receipts/verify` (recomputes every checksum, checks `seq` order + `parent_hash` links) or the CLI `defendable-router verify-ledger`. Tamper with any stored receipt and verification flips `ok: false` and pinpoints the offending `seq`.
 
 Example receipt:
 
